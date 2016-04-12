@@ -19,6 +19,7 @@ class Client extends Model
         return $this->belongsToMany('App\Langue');
     }
 
+/*
     public function __construct($client){
         parent::__construct();
         $this->nom = $client->nom;
@@ -28,4 +29,5 @@ class Client extends Model
         $this->commentaire = $client->commentaire;
         $this->tel_fixe = $client->tel_fixe;
     }
+*/
 }

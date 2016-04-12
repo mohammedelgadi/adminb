@@ -240,9 +240,7 @@
 				</div> 
 
 			</div>
-		</div>
-	</div>
-</form>
+		</div>l
 <!-- /.panel-body -->
 
 
