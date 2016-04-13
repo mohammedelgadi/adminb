@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
-	 protected $fillable = [
+	protected $fillable = [
         'nom', 'prenom', 'email' , 'tel_portable', 'commentaire' , 'tel_fixe'
     ];
 
@@ -14,20 +14,12 @@ class Client extends Model
     	return $this->hasMany(Demande::class);
     }
 
-    public function langues()
+    public function langs()
     {
-        return $this->belongsToMany('App\Langue');
+        return $this->belongsToMany(Lang::class);
     }
 
-/*
-    public function __construct($client){
-        parent::__construct();
-        $this->nom = $client->nom;
-        $this->prenom = $client->prenom;
-        $this->email = $client->email;
-        $this->tel_portable = $client->tel_portable;
-        $this->commentaire = $client->commentaire;
-        $this->tel_fixe = $client->tel_fixe;
+    public function adresse(){
+        return $this->belongsTo(Adresse::class);
     }
-*/
 }

@@ -19,9 +19,9 @@ Route::get('/client/add', function () {
     return view('clientform');
 });
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/test', 'InterpreteurController@show');
+
+Route::post('/interpreteur/add', 'InterpreteurController@store');
 
 
 

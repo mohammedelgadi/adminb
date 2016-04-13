@@ -66,11 +66,11 @@
 								<img class="img-circle" src="http://www.lawyersweekly.com.au/images/LW_Media_Library/594partner-profile-pic-An.jpg" style="width: 100px;height:100px;">
 							</div>
 							<div class="col-lg-9">
-								<h3>Mohammed EL GADI</h3>
-								<span class="glyphicon glyphicon-home"> 0539521438 </span><br/>
-								<span class="glyphicon glyphicon-earphone"> 0606882015</span><br/>
-								<span class="glyphicon glyphicon-globe"> mohelgadi@gmail.com</span><br/>
-								<span class="glyphicon glyphicon-phone-alt"> 86 Boulevard Dalby 4440, Nantes</span><br/>
+								<h3><?php echo e($demande->client->nom); ?> <?php echo e($demande->client->prenom); ?></h3>
+								<span class="glyphicon glyphicon-phone-alt"> <?php echo e($demande->client->tel_portable); ?> </span><br/>
+								<span class="glyphicon glyphicon-earphone"> <?php echo e($demande->client->tel_fixe); ?></span><br/>
+								<span class="glyphicon glyphicon-globe"> <?php echo e($demande->client->email); ?></span><br/>
+								<span class="glyphicon glyphicon-home"> <?php echo e($demande->client->adresse->adresse); ?></span><br/>
 								
 							</div>
 
@@ -82,25 +82,23 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Langue initiale : </label>
-								<select class="form-control" name="langue_ini">
-									<option value="1">Arabe</option>
-									<option value="2">Français</option>
-									<option value="3">Anglais</option>
-									<option value="4">Darija</option>
-									<option value="5">ESPAGNOLE</option>
+								<label>Langue initiale: </label>
+								<select class="form-control" name="langue_dest_2">
+									<option value="0"></option>
+									<?php foreach($langues as $langue): ?>
+									<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+									<?php endforeach; ?>
 								</select>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Langue destination : </label>
-								<select class="form-control" name="langue_dest">
-									<option value="1">Arabe</option>
-									<option value="2">Français</option>
-									<option value="3">Anglais</option>
-									<option value="4">Darija</option>
-									<option value="5">ESPAGNOLE</option>
+								<select class="form-control" name="langue_dest_2">
+									<option value="0"></option>
+									<?php foreach($langues as $langue): ?>
+									<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+									<?php endforeach; ?>
 								</select>
 							</div>
 						</div>
@@ -238,39 +236,37 @@
 				</div> 
 
 			</div>
-		</div>
-	</div>
-</form>
-<!-- /.panel-body -->
+		</div>l
+		<!-- /.panel-body -->
 
 
 
-<?php $__env->stopSection(); ?>
+		<?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('footer'); ?>
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+		<?php $__env->startSection('footer'); ?>
+		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
-<script src="<?php echo e(asset('jquery.datetimepicker.full.js')); ?>"></script>
+		<script src="<?php echo e(asset('jquery.datetimepicker.full.js')); ?>"></script>
 
 
-<script>
+		<script>
 
-	$.datetimepicker.setLocale('fr');
+			$.datetimepicker.setLocale('fr');
 
-	$('#datetimepicker_mask').datetimepicker({
-		format:'d/m/Y h:00:00'
-	});
+			$('#datetimepicker_mask').datetimepicker({
+				format:'d/m/Y h:00:00'
+			});
 
-	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive: true,
-			"pageLength": 10,
-			dom: 'T<"clear">lfrtip',
-			tableTools: {
-				"sRowSelect": "single",
-				fnRowSelected: function(nodes) {
-					var ttInstance = TableTools.fnGetInstance("dataTables-example");
-					var row = ttInstance.fnGetSelectedData();
+			$(document).ready(function() {
+				$('#dataTables-example').DataTable({
+					responsive: true,
+					"pageLength": 10,
+					dom: 'T<"clear">lfrtip',
+					tableTools: {
+						"sRowSelect": "single",
+						fnRowSelected: function(nodes) {
+							var ttInstance = TableTools.fnGetInstance("dataTables-example");
+							var row = ttInstance.fnGetSelectedData();
                     //alert(nodes);
                     $('#client').val(row[0][0]);
                     console.log(row[0][0]);
@@ -282,17 +278,17 @@
 
         });
 
-		$("#datepicker").datepicker(
-		{
-			dateFormat: 'mm/dd/yyyy'
-		});
+				$("#datepicker").datepicker(
+				{
+					dateFormat: 'mm/dd/yyyy'
+				});
 
 
 
 
-	});
-</script>
+			});
+		</script>
 
 
-<?php $__env->stopSection(); ?>
+		<?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

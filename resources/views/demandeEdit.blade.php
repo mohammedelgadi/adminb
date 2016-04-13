@@ -68,11 +68,11 @@
 								<img class="img-circle" src="http://www.lawyersweekly.com.au/images/LW_Media_Library/594partner-profile-pic-An.jpg" style="width: 100px;height:100px;">
 							</div>
 							<div class="col-lg-9">
-								<h3>Mohammed EL GADI</h3>
-								<span class="glyphicon glyphicon-home"> 0539521438 </span><br/>
-								<span class="glyphicon glyphicon-earphone"> 0606882015</span><br/>
-								<span class="glyphicon glyphicon-globe"> mohelgadi@gmail.com</span><br/>
-								<span class="glyphicon glyphicon-phone-alt"> 86 Boulevard Dalby 4440, Nantes</span><br/>
+								<h3>{{$demande->client->nom}} {{$demande->client->prenom}}</h3>
+								<span class="glyphicon glyphicon-phone-alt"> {{$demande->client->tel_portable}} </span><br/>
+								<span class="glyphicon glyphicon-earphone"> {{$demande->client->tel_fixe}}</span><br/>
+								<span class="glyphicon glyphicon-globe"> {{$demande->client->email}}</span><br/>
+								<span class="glyphicon glyphicon-home"> {{$demande->client->adresse->adresse}}</span><br/>
 								
 							</div>
 
@@ -84,25 +84,23 @@
 					<div class="row">
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Langue initiale : </label>
-								<select class="form-control" name="langue_ini">
-									<option value="1">Arabe</option>
-									<option value="2">Français</option>
-									<option value="3">Anglais</option>
-									<option value="4">Darija</option>
-									<option value="5">ESPAGNOLE</option>
+								<label>Langue initiale: </label>
+								<select class="form-control" name="langue_dest_2">
+									<option value="0"></option>
+									@foreach($langues as $langue)
+									<option value="{{$langue->id}}">{{$langue->content}}</option>
+									@endforeach
 								</select>
 							</div>
 						</div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Langue destination : </label>
-								<select class="form-control" name="langue_dest">
-									<option value="1">Arabe</option>
-									<option value="2">Français</option>
-									<option value="3">Anglais</option>
-									<option value="4">Darija</option>
-									<option value="5">ESPAGNOLE</option>
+								<select class="form-control" name="langue_dest_2">
+									<option value="0"></option>
+									@foreach($langues as $langue)
+									<option value="{{$langue->id}}">{{$langue->content}}</option>
+									@endforeach
 								</select>
 							</div>
 						</div>
@@ -241,36 +239,36 @@
 
 			</div>
 		</div>l
-<!-- /.panel-body -->
+		<!-- /.panel-body -->
 
 
 
-@stop
+		@stop
 
-@section('footer')
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+		@section('footer')
+		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
-<script src="{{{ asset('jquery.datetimepicker.full.js') }}}"></script>
+		<script src="{{{ asset('jquery.datetimepicker.full.js') }}}"></script>
 
 
-<script>
+		<script>
 
-	$.datetimepicker.setLocale('fr');
+			$.datetimepicker.setLocale('fr');
 
-	$('#datetimepicker_mask').datetimepicker({
-		format:'d/m/Y h:00:00'
-	});
+			$('#datetimepicker_mask').datetimepicker({
+				format:'d/m/Y h:00:00'
+			});
 
-	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive: true,
-			"pageLength": 10,
-			dom: 'T<"clear">lfrtip',
-			tableTools: {
-				"sRowSelect": "single",
-				fnRowSelected: function(nodes) {
-					var ttInstance = TableTools.fnGetInstance("dataTables-example");
-					var row = ttInstance.fnGetSelectedData();
+			$(document).ready(function() {
+				$('#dataTables-example').DataTable({
+					responsive: true,
+					"pageLength": 10,
+					dom: 'T<"clear">lfrtip',
+					tableTools: {
+						"sRowSelect": "single",
+						fnRowSelected: function(nodes) {
+							var ttInstance = TableTools.fnGetInstance("dataTables-example");
+							var row = ttInstance.fnGetSelectedData();
                     //alert(nodes);
                     $('#client').val(row[0][0]);
                     console.log(row[0][0]);
@@ -282,16 +280,16 @@
 
         });
 
-		$("#datepicker").datepicker(
-		{
-			dateFormat: 'mm/dd/yyyy'
-		});
+				$("#datepicker").datepicker(
+				{
+					dateFormat: 'mm/dd/yyyy'
+				});
 
 
 
 
-	});
-</script>
+			});
+		</script>
 
 
-@stop
+		@stop

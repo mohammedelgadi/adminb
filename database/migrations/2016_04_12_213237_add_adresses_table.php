@@ -12,8 +12,16 @@ class AddAdressesTable extends Migration
      */
     public function up()
     {
-        Schema::table('adresses', function (Blueprint $table) {
-            //
+        Schema::create('adresses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('adresse');
+            $table->string('numero');
+            $table->string('route');
+            $table->string('code_postal');
+            $table->string('ville');
+            $table->string('pays');
+            $table->string('departement');
+            $table->timestamps();
         });
     }
 
@@ -24,8 +32,6 @@ class AddAdressesTable extends Migration
      */
     public function down()
     {
-        Schema::table('adresses', function (Blueprint $table) {
-            //
-        });
+        Schema::drop('adresses');
     }
 }
