@@ -1,16 +1,42 @@
 <?php $__env->startSection('header'); ?>
 
 
-<link rel="stylesheet" type="text/css" href="<?php echo e(asset('bootstrap-tags.css')); ?>" />
+<!--<link rel="stylesheet" type="text/css" href="<?php echo e(asset('bootstrap-tags.css')); ?>" />-->
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 
+<style type="text/css">
 
+	.modal-header-danger {
+		color:#fff;
+		padding:9px 15px;
+		border-bottom:1px solid #eee;
+		background-color: #d9534f;
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-top-right-radius: 5px;
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-topright: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	.modal-header-success {
+		color:#fff;
+		padding:9px 15px;
+		border-bottom:1px solid #eee;
+		background-color: #5cb85c;
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-top-right-radius: 5px;
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-topright: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}l
+
+</style>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
 
-
-<h3 class="page-header">Ajouter un nouveau client</h3>
 <form role="form" method="POST" action="/interpreteur/add" id="formID" enctype="multipart/form-data">
 
 	<div class="panel-body">
@@ -18,164 +44,137 @@
 			<div class="col-lg-6">
 				<?php echo csrf_field(); ?>
 
-				<div class="form-group">
-					<label>Nom du client</label>
-					<input class="form-control" name="nom" value="<?php echo e(old('nom')); ?>" >
-					<p class="help-block">Example block-level help text here.</p>
-				</div>
-				<div class="form-group">
-					<label>Prenom</label>
-					<input class="form-control" value="<?php echo e(old('prenom')); ?>"  name="prenom" placeholder="Enter text">
-				</div>
-				<div class="form-group">
-					<label>email</label>
-					<input class="form-control" value="<?php echo e(old('email')); ?>"  name="email" placeholder="Enter text">
-				</div>
-				<div class="form-group">
-					<label>Image : </label>
-					<input type="file" name="image">
-				</div>
-				<div class="form-group">
-					<label>tel portable</label>
-					<input class="form-control" value="<?php echo e(old('tel_portable')); ?>"  name="tel_portable" placeholder="telephone portable">
-				</div>
-				<div class="form-group">
-					<label>tel fixe</label>
-					<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
-				</div>
-				<div class="form-group">
-					<label>tel fixe</label>
-					<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
-				</div>
-				<div class="form-group">
-					<label>Langues</label>
-					<div name="mamot" id="suggestOnClick"></div>
-					
-				</div>
-				<div class="form-group">
-					<label>Commentaire</label>
-					<textarea class="form-control" name="commentaire" rows="3"><?php echo e(old('commentaire')); ?></textarea>
-				</div>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div class="form-group">
+							<label>Nom de l'interpreteur</label>
+							<input class="form-control" name="nom" value="<?php echo e(old('nom')); ?>" >
+							<p class="help-block">Example block-level help text here.</p>
+						</div>
+						<div class="form-group">
+							<label>Prenom</label>
+							<input class="form-control" value="<?php echo e(old('prenom')); ?>"  name="prenom" placeholder="Enter text">
+						</div>
+						<div class="form-group">
+							<label>email</label>
+							<input class="form-control" value="<?php echo e(old('email')); ?>"  name="email" placeholder="Enter text">
+						</div>
+						<div class="form-group">
+							<label>Image : </label>
+							<input type="file" name="image">
+						</div>
+						<div class="form-group">
+							<label>tel portable</label>
+							<input class="form-control" value="<?php echo e(old('tel_portable')); ?>"  name="tel_portable" placeholder="telephone portable">
+						</div>
+						<div class="form-group">
+							<label>tel fixe</label>
+							<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
+						</div>
+						<div class="form-group">
+							<label>tel fixe</label>
+							<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
+						</div>
+						<!--
+						<div class="form-group">
+							<label>Langues</label>
+							<div name="mamot" id="suggestOnClick"></div>
 
-				<!--<input id="hiddenfield" name="langues" hidden="true"></input>-->
+						</div>
+						-->
+						<div class="form-group">
+							<label>Commentaire</label>
+							<textarea class="form-control" name="commentaire" rows="3"><?php echo e(old('commentaire')); ?></textarea>
+						</div>
 
-				<button id="send" type="submit" class="btn btn-outline btn-primary">Ajouter</button>
-				<button type="reset" class="btn btn-outline btn-primary">Supprimer</button>
-				
+						<!--<input id="hiddenfield" name="langues" hidden="true"></input>-->
 
-				<hr>
+						<button id="send" type="submit" class="btn btn-outline btn-primary">Ajouter</button>
+						<button type="reset" class="btn btn-outline btn-primary">Supprimer</button>
 
 
+						<hr>
+					</div>
+				</div>
 			</div>
 			<div class="col-lg-6">
-				<div>
-					<div class="form-group">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Langue initiale 1: </label>
-									<select class="form-control" name="langue_ini_1">
-										<option value="0"></option>
-										<?php foreach($langues as $langue): ?>
-										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
-										<?php endforeach; ?>
-									</select>
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Langue initiale 1: </label>
+											<select class="form-control" name="langue_ini">
+												<option value=""></option>
+												<?php foreach($langues as $langue): ?>
+												<?php if($langue->id == old('langue_ini')): ?>
+												<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+												<?php else: ?>
+												<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+
+												<?php endif; ?>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label>Langue destination 1: </label>
+											<select class="form-control" name="langue_dest" >
+												<option value=""></option>
+												<?php foreach($langues as $langue): ?>
+												<?php if($langue->id == old('langue_dest')): ?>
+												<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+												<?php else: ?>
+												<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+
+												<?php endif; ?>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</div>
 								</div>
 							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Langue destination 1: </label>
-									<select class="form-control" name="langue_dest_1">
-										<option value="0"></option>
-										<?php foreach($langues as $langue): ?>
-										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
+							<div class="form-group">
+								<label>Adresse</label>
+								<input class="form-control" name="adresse" value="<?php echo e(old('adresse')); ?>" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
+							</div>
+
+							<div class="form-group">
+								<label>Numero</label>
+								<input class="form-control" name="numero" value="<?php echo e(old('numero')); ?>" id="street_number">
+							</div>
+
+							<div class="form-group">
+								<label>Route</label>
+								<input class="form-control" name="route" value="<?php echo e(old('route')); ?>" id="route">
+							</div>
+
+							<div class="form-group">
+								<label>Code postal</label>
+								<input class="form-control" name="code_postal" value="<?php echo e(old('code_postal')); ?>" id="postal_code" type="text">
+							</div>
+
+							<div class="form-group">
+								<label>Ville</label>
+								<input class="form-control" name="ville" value="<?php echo e(old('ville')); ?>" id="locality"
+								 type="text">
+							</div>
+
+							<div class="form-group">
+								<label>Pays</label>
+								<input class="form-control" name="pays" value="<?php echo e(old('pays')); ?>" id="country" >
+							</div>
+
+							<div class="form-group">
+								<label>Departement</label>
+								<input class="form-control" name="departement" value="<?php echo e(old('departement')); ?>" id="administrative_area_level_1">
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Langue initiale 2: </label>
-									<select class="form-control" name="langue_ini_2">
-										<option value="0"></option>
-										<?php foreach($langues as $langue): ?>
-										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Langue destination 2: </label>
-									<select class="form-control" name="langue_dest_2">
-										<option value="0"></option>
-										<?php foreach($langues as $langue): ?>
-										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
-										<?php endforeach; ?>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<label>Adresse</label>
-						<input class="form-control" name="adresse" value="<?php echo e(old('adresse')); ?>" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
-					</div>
-
-					<div class="form-group">
-						<label>Numero</label>
-						<input class="form-control" name="numero" value="<?php echo e(old('numero')); ?>" id="street_number" disabled="true">
-					</div>
-
-					<div class="form-group">
-						<label>Route</label>
-						<input class="form-control" name="route" value="<?php echo e(old('route')); ?>" id="route" disabled="true">
-					</div>
-
-					<div class="form-group">
-						<label>Code postal</label>
-						<input class="form-control" name="code_postal" value="<?php echo e(old('code_postal')); ?>" id="postal_code"
-						disabled="true"  type="text">
-					</div>
-
-					<div class="form-group">
-						<label>Ville</label>
-						<input class="form-control" name="ville" value="<?php echo e(old('ville')); ?>" id="locality"
-						disabled="true" type="text">
-					</div>
-
-					<div class="form-group">
-						<label>Pays</label>
-						<input class="form-control" name="pays" value="<?php echo e(old('pays')); ?>" id="country" disabled="true">
-					</div>
-
-					<div class="form-group">
-						<label>Departement</label>
-						<input class="form-control" name="departement" value="<?php echo e(old('departement')); ?>" id="administrative_area_level_1" disabled="true">
-					</div>
 				</div>
-
-				<?php if(count($errors)): ?>
-				<ul>
-					<?php foreach($errors->all() as $error): ?>
-					<div class="alert alert-danger">
-						<?php echo e($error); ?>
-
-					</div>
-					<?php endforeach; ?>
-				</ul>
-
-				<?php endif; ?>
-
-				<?php if(isset($nom)): ?>
-				<div class="alert alert-success">
-					Le nouveau client <b> <?php echo e($nom); ?> <?php echo e($prenom); ?> </b> a été ajouté à la base de donnée.
-				</div>
-				<?php endif; ?>
 			</div>
 		</div>
 		<!-- /.row (nested) -->
@@ -184,11 +183,93 @@
 </form>
 
 
+<!-- Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header  modal-header-danger">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
+			</div>
+			<div class="modal-body">
+				<ul>
+					<?php foreach($errors->all() as $error): ?>
+					<a href="#" class="list-group-item">
+						<i class="fa fa fa-times fa-fw"></i> <?php echo e($error); ?>
+
+					</a>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<?php if(isset($message)): ?>
+<!-- Modal -->
+<div class="modal fade" id="sucess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header modal-header-success">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel"><?php echo e($message); ?></h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-2">
+
+						<img class="img-circle" src="http://www.lawyersweekly.com.au/images/LW_Media_Library/594partner-profile-pic-An.jpg" style="width: 100px;height:100px;">
+					</div>
+					<div class="col-lg-9">
+						<h3><?php echo e($interpreteur->nom); ?> <?php echo e($interpreteur->prenom); ?></h3>
+						<span class="glyphicon glyphicon-phone-alt"> <?php echo e($interpreteur->tel_portable); ?> </span><br/>
+						<span class="glyphicon glyphicon-earphone"> <?php echo e($interpreteur->tel_fixe); ?></span><br/>
+						<span class="glyphicon glyphicon-globe"> <?php echo e($interpreteur->email); ?></span><br/>
+						<span class="glyphicon glyphicon-home"> <?php echo e($interpreteur->adresse->adresse); ?></span><br/>
+
+					</div>
+
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<?php endif; ?>
+
+
+
+
+
+
 
 
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('footer'); ?>
+
+<script type="text/javascript">
+	<?php if(count($errors) > 0): ?>
+	$('#errorModal').modal('show');
+	<?php endif; ?>
+</script>
+
+<?php if(isset($message)): ?>
+<script type="text/javascript">
+	$('#sucess').modal('show');
+</script>
+<?php endif; ?>
+<!--
 <script src='<?php echo e(asset("bootstrap-tags.js")); ?>'></script>
 <script type="text/javascript">
 	$(function(){
@@ -214,6 +295,7 @@
 	*/
 
 </script>
+-->
 
 <script>
 // This example displays an address form, using the autocomplete feature
@@ -247,7 +329,7 @@ function fillInAddress() {
   var place = autocomplete.getPlace();
 
   for (var component in componentForm) {
-  	document.getElementById(component).value = '';
+  	//document.getElementById(component).value = '';
   	document.getElementById(component).disabled = false;
   }
 

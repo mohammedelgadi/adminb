@@ -3,26 +3,69 @@
 
 @section('header')
 
-
+<!--
 <link rel="stylesheet" type="text/css" href="{{{ asset('jquery.datetimepicker.css') }}}"/>
+-->
 
+
+<link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="{{{ asset('bootstrap-material-datetimepicker.css')}}}" />
+
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="{{{ asset('bootstrap-material-datetimepicker.js')}}}"></script>
+
+
+
+<!--
 <script>
 	$(function() {
 		$( "#datepicker" ).datepicker();
 	});
 </script>
+-->
+
+
+
+<style type="text/css">
+
+	.modal-header-danger {
+		color:#fff;
+		padding:9px 15px;
+		border-bottom:1px solid #eee;
+		background-color: #d9534f;
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-top-right-radius: 5px;
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-topright: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+	.modal-header-success {
+		color:#fff;
+		padding:9px 15px;
+		border-bottom:1px solid #eee;
+		background-color: #5cb85c;
+		-webkit-border-top-left-radius: 5px;
+		-webkit-border-top-right-radius: 5px;
+		-moz-border-radius-topleft: 5px;
+		-moz-border-radius-topright: 5px;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+
+</style>
 
 @stop
 
 @section('content')
-<h3 class="page-header">Demande : </h3>
-<form role="form" method="POST" action="/demande/add">
+<form role="form" method="POST" action="/demande/update">
 	{!! csrf_field() !!}
 	<div class="panel-body">
 		<div class="row">
 			<div class="col-lg-5">
-				
-
 				<div class="panel panel-primary">
 					<div class="panel-heading">
 						Edition de la demande 
@@ -30,13 +73,14 @@
 					<div class="panel-body">
 						<div class="form-group">
 							<label>Titre de la demande</label>
-							<input class="form-control" name="titre">
+							<input class="form-control" name="titre" value="{{$demande->titre}}">
 							<p class="help-block">Saisir l'objet de la demande.</p>
 						</div>
 						<div class="form-group">
 							<label>Date de l'evenement</label>
 							<div class="input-group date" >
-								<input type="text" name="dateEvent" class="form-control" id="datetimepicker_mask">
+								<!--<input type="text" name="dateEvent" value="{{$demande->dateEvent}}" class="form-control" id="datetimepicker_mask">-->
+								<input type="text" name="dateEvent" id="date-format" class="form-control floating-label" value="{{$demande->dateEvent}}" >
 								<div class="input-group-addon">
 									<span class="glyphicon glyphicon-th"></span>
 								</div>
@@ -45,14 +89,14 @@
 
 						<div class="form-group">
 							<label>Contenu de la demande</label>
-							<textarea class="form-control" rows="15" name="content"></textarea>
+							<textarea class="form-control" rows="15" name="content">{{$demande->content}}</textarea>
 							<p class="help-block">Saisir le contenu de la demande.</p>
 						</div>
 
-						<input type="hidden" name="client_id" value="" id="client">
+						<input type="hidden" name="id" value="{{$demande->id}}" id="id">
 
-						<button type="submit" class="btn btn-outline btn-primary">Modifier</button>
-						<button type="reset" class="btn btn-outline btn-primary">Supprimer</button>
+						<button type="submit" name="action" value="modifier" class="btn btn-outline btn-primary">Modifier</button>
+						<button type="submit" name="action" value="supprimer" class="btn btn-outline btn-primary">Supprimer</button>
 					</div>
 				</div>
 				
@@ -72,7 +116,7 @@
 								<span class="glyphicon glyphicon-phone-alt"> {{$demande->client->tel_portable}} </span><br/>
 								<span class="glyphicon glyphicon-earphone"> {{$demande->client->tel_fixe}}</span><br/>
 								<span class="glyphicon glyphicon-globe"> {{$demande->client->email}}</span><br/>
-								<span class="glyphicon glyphicon-home"> {{$demande->client->adresse->adresse}}</span><br/>
+
 								
 							</div>
 
@@ -85,10 +129,15 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Langue initiale: </label>
-								<select class="form-control" name="langue_dest_2">
-									<option value="0"></option>
+								<select class="form-control" name="langue_ini">
+									<option value=""></option>
 									@foreach($langues as $langue)
+									@if($langue->id == $demande->langue_ini)
+									<option value="{{$langue->id}}" selected>{{$langue->content}}</option>
+									@else
 									<option value="{{$langue->id}}">{{$langue->content}}</option>
+
+									@endif
 									@endforeach
 								</select>
 							</div>
@@ -96,10 +145,15 @@
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Langue destination : </label>
-								<select class="form-control" name="langue_dest_2">
-									<option value="0"></option>
+								<select class="form-control" name="langue_dest">
+									<option value=""></option>
 									@foreach($langues as $langue)
+									@if($langue->id == $demande->langue_dest)
+									<option value="{{$langue->id}}" selected>{{$langue->content}}</option>
+									@else
 									<option value="{{$langue->id}}">{{$langue->content}}</option>
+
+									@endif
 									@endforeach
 								</select>
 							</div>
@@ -238,37 +292,78 @@
 				</div> 
 
 			</div>
-		</div>l
+		</div>
 		<!-- /.panel-body -->
 
+		<!-- Modal -->
+		<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header  modal-header-danger">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
+					</div>
+					<div class="modal-body">
+						<ul>
+							@foreach($errors->all() as $error)
+							<a href="#" class="list-group-item">
+								<i class="fa fa fa-times fa-fw"></i> {{$error}}
+							</a>
+							@endforeach
+						</ul>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	</div>
+</form>
 
 
-		@stop
 
-		@section('footer')
-		<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+@stop
 
-		<script src="{{{ asset('jquery.datetimepicker.full.js') }}}"></script>
+@section('footer')
+
+<script type="text/javascript">
+	@if (count($errors) > 0)
+	$('#errorModal').modal('show');
+	@endif
+</script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+<!--
+
+<script src="{{{ asset('jquery.datetimepicker.full.js') }}}"></script>
+
+-->
 
 
-		<script>
+<script>
+	/*
 
-			$.datetimepicker.setLocale('fr');
+	$.datetimepicker.setLocale('fr');
 
-			$('#datetimepicker_mask').datetimepicker({
-				format:'d/m/Y h:00:00'
-			});
+	$('#datetimepicker_mask').datetimepicker({
+		format:'Y-m-d h:00:00'
+	});
+	*/
 
-			$(document).ready(function() {
-				$('#dataTables-example').DataTable({
-					responsive: true,
-					"pageLength": 10,
-					dom: 'T<"clear">lfrtip',
-					tableTools: {
-						"sRowSelect": "single",
-						fnRowSelected: function(nodes) {
-							var ttInstance = TableTools.fnGetInstance("dataTables-example");
-							var row = ttInstance.fnGetSelectedData();
+	$(document).ready(function() {
+		$('#dataTables-example').DataTable({
+			responsive: true,
+			"pageLength": 10,
+			dom: 'T<"clear">lfrtip',
+			tableTools: {
+				"sRowSelect": "single",
+				fnRowSelected: function(nodes) {
+					var ttInstance = TableTools.fnGetInstance("dataTables-example");
+					var row = ttInstance.fnGetSelectedData();
                     //alert(nodes);
                     $('#client').val(row[0][0]);
                     console.log(row[0][0]);
@@ -280,16 +375,23 @@
 
         });
 
-				$("#datepicker").datepicker(
-				{
-					dateFormat: 'mm/dd/yyyy'
-				});
+
+
+	});
+</script>
+
+
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
+
+<script type="text/javascript">
+	$('#date-format').bootstrapMaterialDatePicker
+	({
+		format: 'YYYY-MM-DD HH:mm:ss'
+	});	
+</script>
 
 
 
-
-			});
-		</script>
-
-
-		@stop
+@stop

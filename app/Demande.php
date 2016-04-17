@@ -11,10 +11,24 @@ class Demande extends Model
     ];
 
     public function client(){
-    	return $this->belongsTo(Client::class);
+    	return $this->belongsTo(Client::class,'client_id');
     }
 
     public function adresse(){
-    	return $this->belongsTo(adresse::class);
+    	return $this->belongsTo(Adresse::class);
     }
+
+    public function langueIni(){
+    	return $this->belongsTo(Lang::class,'langue_ini');
+    }
+
+    public function langueDest(){
+    	return $this->belongsTo(Lang::class,'langue_dest');
+    }
+
+    public function etat(){
+    	return $this->belongsTo(Etat::class);
+    }
+
+
 }

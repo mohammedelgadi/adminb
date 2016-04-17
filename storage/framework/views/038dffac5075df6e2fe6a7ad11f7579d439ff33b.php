@@ -1,7 +1,9 @@
 <?php $__env->startSection('header'); ?>
-
+<!--
 
 <link rel="stylesheet" type="text/css" href="<?php echo e(asset('bootstrap-tags.css')); ?>" />
+
+-->
 
 <?php $__env->stopSection(); ?>
 
@@ -31,7 +33,7 @@
 				</div>
 				<div class="form-group">
 					<label>Image : </label>
-					<input type="file" name="image">
+					<input type="file" name="image" value="<?php echo e(old('image')); ?>">
 				</div>
 				<div class="form-group">
 					<label>tel portable</label>
@@ -44,11 +46,6 @@
 				<div class="form-group">
 					<label>tel fixe</label>
 					<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
-				</div>
-				<div class="form-group">
-					<label>Langues</label>
-					<div name="mamot" id="suggestOnClick"></div>
-					
 				</div>
 				<div class="form-group">
 					<label>Commentaire</label>
@@ -96,7 +93,10 @@
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('footer'); ?>
+
+<!--
 <script src='<?php echo e(asset("bootstrap-tags.js")); ?>'></script>
+
 <script type="text/javascript">
 	$(function(){
 		$("#suggestOnClick").tags({
@@ -118,6 +118,8 @@
 	});
 
 </script>
+
+-->
 
 
 

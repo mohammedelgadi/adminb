@@ -22,7 +22,7 @@ class ClientController extends Controller
 			'email' => 'required|email|unique:clients,email'
 			]);
 
-		$client = new Client($request);
+		$client = new Client($request->all());
 		$langues = preg_split("/\s+/", $request->langues);
 
 		if(!empty($request->file('image'))){

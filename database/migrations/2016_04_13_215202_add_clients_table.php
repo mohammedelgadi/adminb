@@ -21,8 +21,6 @@ class AddClientsTable extends Migration
             $table->text('commentaire');
             $table->string('tel_fixe');
             $table->string('image');
-            $table->integer('adresse_id')->unsigned()->index();
-            $table->foreign('adresse_id')->references('id')->on('adresses');
             $table->timestamps();
         });
     }

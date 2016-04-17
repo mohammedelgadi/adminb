@@ -4,8 +4,13 @@
 @section('header')
 
 
-<link rel="stylesheet" type="text/css" href="{{{ asset('jquery.datetimepicker.css') }}}"/>
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="{{{ asset('bootstrap-material-datetimepicker.css')}}}" />
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="{{{ asset('bootstrap-material-datetimepicker.js')}}}"></script>
 
 
 <style type="text/css">
@@ -38,17 +43,12 @@
 
 </style>
 
-<script>
-	$(function() {
-		$( "#datepicker" ).datepicker();
-	});
-</script>
+
 @stop
 
 @section('content')
 
-<h3 class="page-header">Nouvelle demande</h3>
-
+<hr>
 <form role="form" method="POST" action="/demande/add">
 	<div class="panel panel-default">
 		<div class="panel-body">
@@ -70,7 +70,7 @@
 								<div class="form-group">
 									<label>Date de l'evenement</label>
 									<div class="input-group date" >
-										<input type="text" name="dateEvent" value="{{ old('dateEvent') }}" class="form-control" id="datetimepicker_mask">
+										<input type="text" name="dateEvent" id="date-format" class="form-control floating-label" placeholder="Begin Date Time">
 										<div class="input-group-addon">
 											<span class="glyphicon glyphicon-th"></span>
 										</div>
@@ -82,12 +82,15 @@
 											<div class="form-group">
 												<label>Langue initiale : </label>
 												<select class="form-control" name="langue_ini">
-													<option value="0"></option>
-													<option value="1">Arabe</option>
-													<option value="2">Français</option>
-													<option value="3">Anglais</option>
-													<option value="4">Darija</option>
-													<option value="5">ESPAGNOLE</option>
+													<option value=""></option>
+													@foreach($langues as $langue)
+													@if($langue->id == old('langue_ini'))
+													<option value="{{$langue->id}}" selected>{{$langue->content}}</option>
+													@else
+													<option value="{{$langue->id}}">{{$langue->content}}</option>
+
+													@endif
+													@endforeach
 												</select>
 											</div>
 										</div>
@@ -95,12 +98,15 @@
 											<div class="form-group">
 												<label>Langue destination : </label>
 												<select class="form-control" name="langue_dest">
-													<option value="0"></option>
-													<option value="1">Arabe</option>
-													<option value="2">Français</option>
-													<option value="3">Anglais</option>
-													<option value="4">Darija</option>
-													<option value="5">ESPAGNOLE</option>
+													<option value=""></option>
+													@foreach($langues as $langue)
+													@if($langue->id == old('langue_dest'))
+													<option value="{{$langue->id}}" selected>{{$langue->content}}</option>
+													@else
+													<option value="{{$langue->id}}">{{$langue->content}}</option>
+
+													@endif
+													@endforeach
 												</select>
 											</div>
 										</div>
@@ -137,7 +143,6 @@
 													<th>Nom</th>
 													<th>Prenom</th>
 													<th>E-MAIL</th>
-
 												</tr>
 											</thead>
 											<tfoot>
@@ -149,13 +154,11 @@
 
 												</tr>
 											</tfoot>
-
 											<tr>
 												<td>1</td>
 												<td>Mohammed</td>
 												<td>EL GADI</td>
 												<td>Comment</td>
-
 											</tr>
 											<tr>
 												<td>2</td>
@@ -219,39 +222,32 @@
 										<label>Adresse</label>
 										<input class="form-control" name="adresse" value="{{ old('adresse') }}" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
 									</div>
-
 									<div class="form-group">
 										<label>Numero</label>
-										<input class="form-control" name="numero" value="{{ old('numero') }}" id="street_number" disabled="true">
+										<input class="form-control" name="numero" value="{{ old('numero') }}" id="street_number">
 									</div>
-
 									<div class="form-group">
 										<label>Route</label>
-										<input class="form-control" name="route" value="{{ old('route') }}" id="route" disabled="true">
+										<input class="form-control" name="route" value="{{ old('route') }}" id="route" >
 									</div>
-
 									<div class="form-group">
 										<label>Code postal</label>
 										<input class="form-control" name="code_postal" value="{{ old('code_postal') }}" id="postal_code"
-										disabled="true"  type="text">
+										type="text">
 									</div>
-
 									<div class="form-group">
 										<label>Ville</label>
 										<input class="form-control" name="ville" value="{{ old('ville') }}" id="locality"
-										disabled="true" type="text">
+										type="text">
 									</div>
-
 									<div class="form-group">
 										<label>Pays</label>
-										<input class="form-control" name="pays" value="{{ old('pays') }}" id="country" disabled="true">
+										<input class="form-control" name="pays" value="{{ old('pays') }}" id="country">
 									</div>
-
 									<div class="form-group">
 										<label>Departement</label>
-										<input class="form-control" name="departement" value="{{ old('departement') }}" id="administrative_area_level_1" disabled="true">
+										<input class="form-control" name="departement" value="{{ old('departement') }}" id="administrative_area_level_1">
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -263,7 +259,7 @@
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="devisModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header  modal-header-danger">
@@ -323,18 +319,12 @@
 @stop
 
 @section('footer')
-<!-- Page-Level Demo Scripts - Tables - Use for reference -->
 
-<script src="{{{ asset('jquery.datetimepicker.full.js') }}}"></script>
-
+<script src="{{{ asset('js/tableTools.js')}}}"></script>
 
 <script>
 
-	$.datetimepicker.setLocale('fr');
-
-	$('#datetimepicker_mask').datetimepicker({
-		format:'d/m/Y h:00:00'
-	});
+	
 
 	$(document).ready(function() {
 		$('#dataTables-example').DataTable({
@@ -353,8 +343,7 @@
 				fnRowDeselected: function ( node ) {
 					$('#client').val("");
 				}
-			}
-			,"columnDefs":
+			},"columnDefs":
 			[ { "visible": false, "searchable": false, "targets":[0] }]
 
 		});
@@ -375,7 +364,7 @@
 
 <script type="text/javascript">
 	@if (count($errors) > 0)
-	$('#devisModal').modal('show');
+	$('#errorModal').modal('show');
 	@endif
 </script>
 
@@ -418,7 +407,7 @@ function fillInAddress() {
   var place = autocomplete.getPlace();
 
   for (var component in componentForm) {
-  	document.getElementById(component).value = '';
+  	//document.getElementById(component).value = '';
   	document.getElementById(component).disabled = false;
   }
 
@@ -455,8 +444,18 @@ function geolocate() {
 // [END region_geolocation]
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAS3tOh8NpT_5A_-P2-Oz2HqAhEf5h4uSs&signed_in=true&libraries=places&callback=initAutocomplete"
-async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAS3tOh8NpT_5A_-P2-Oz2HqAhEf5h4uSs&signed_in=true&libraries=places&callback=initAutocomplete" async defer></script>
+
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
+
+<script type="text/javascript">
+	$('#date-format').bootstrapMaterialDatePicker
+	({
+		format: 'Y-m-d h:MM:00'
+	});	
+</script>
 
 
 @stop

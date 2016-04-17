@@ -11,25 +11,30 @@
 
 	<title>SB Admin 2 - Bootstrap Admin Theme</title>
 
-	<!-- Bootstrap Core CSS -->
-	<link href="<?php echo e(asset('bower_components/bootstrap/dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
+    <!-- /#wrapper -->
 
-	<!-- MetisMenu CSS -->
-	<link href="<?php echo e(asset('bower_components/metisMenu/dist/metisMenu.min.css')); ?>" rel="stylesheet">
 
-	<!-- Custom CSS -->
-	<link href="<?php echo e(asset('dist/css/sb-admin-2.css')); ?>" rel="stylesheet">
 
-	<!-- Custom Fonts -->
-	<link href="<?php echo e(asset('bower_components/font-awesome/css/font-awesome.min.css')); ?>" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core CSS -->
+    <link href="<?php echo e(asset('bower_components/bootstrap/dist/css/bootstrap.min.css')); ?>" rel="stylesheet">
 
-	<!-- DataTables CSS -->
-	<link href="<?php echo e(asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css')); ?>" rel="stylesheet">
+    <!-- MetisMenu CSS -->
+    <link href="<?php echo e(asset('bower_components/metisMenu/dist/metisMenu.min.css')); ?>" rel="stylesheet">
 
-	<!-- DataTables Responsive CSS -->
-	<!--<link href="<?php echo e(asset('bower_components/datatables-responsive/css/dataTables.responsive.css')); ?>" rel="stylesheet">-->
+    <!-- Custom CSS -->
+    <link href="<?php echo e(asset('dist/css/sb-admin-2.css')); ?>" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<?php echo e(asset('bower_components/font-awesome/css/font-awesome.min.css')); ?>" rel="stylesheet" type="text/css">
+
+    <!-- DataTables CSS -->
+    <link href="<?php echo e(asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css')); ?>" rel="stylesheet">
+
 
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/tabletools/2.2.4/css/dataTables.tableTools.css">
+
+    <script src="<?php echo e(asset('bower_components/jquery/dist/jquery.min.js')); ?>"></script>
+
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,8 +44,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-    <?php echo $__env->yieldContent('header'); ?>
-    
+        <?php echo $__env->yieldContent('header'); ?>
+
     </head>
 
     <body>
@@ -396,28 +401,47 @@
     		<!-- /#page-wrapper -->
 
     	</div>
-    	<!-- /#wrapper -->
 
-    	<!-- jQuery -->
-    	<script src="<?php echo e(asset('bower_components/jquery/dist/jquery.min.js')); ?>"></script>
 
-    	<!-- Bootstrap Core JavaScript -->
-    	<script src="<?php echo e(asset('bower_components/bootstrap/dist/js/bootstrap.min.js')); ?>"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="<?php echo e(asset('bower_components/bootstrap/dist/js/bootstrap.min.js')); ?>"></script>
 
-    	<!-- Metis Menu Plugin JavaScript -->
-    	<script src="<?php echo e(asset('bower_components/metisMenu/dist/metisMenu.min.js')); ?>"></script>
+                <!-- DataTables JavaScript -->
+        <script src="<?php echo e(asset('bower_components/datatables/media/js/jquery.dataTables.min.js')); ?>"></script>
 
-    	<!-- Custom Theme JavaScript -->
-    	<script src="<?php echo e(asset('dist/js/sb-admin-2.js')); ?>"></script>
+        <script src="<?php echo e(asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js')); ?>"></script>
 
-    	<!-- DataTables JavaScript -->
-    	<script src="<?php echo e(asset('bower_components/datatables/media/js/jquery.dataTables.min.js')); ?>"></script>
-    	<script src="<?php echo e(asset('bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js')); ?>"></script>
-    	<!--<script src="<?php echo e(asset('bower_components/datatables-responsive/js/dataTables.responsive.js')); ?>"></script>-->
-        <script src="//cdn.datatables.net/tabletools/2.2.4/js/dataTables.tableTools.js"></script>
 
-        <?php echo $__env->yieldContent('footer'); ?>
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="<?php echo e(asset('bower_components/metisMenu/dist/metisMenu.min.js')); ?>"></script>
 
-    </body>
+        <!-- Custom Theme JavaScript -->
+        <script src="<?php echo e(asset('dist/js/sb-admin-2.js')); ?>"></script>
 
-    </html>
+
+       
+        <script src="<?php echo e(asset('bower_components/datatables-responsive/js/dataTables.responsive.js')); ?>"></script>
+
+
+
+        <script src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js"></script>
+        <script src="//cdn.datatables.net/buttons/1.1.2/js/buttons.colVis.min.js"></script>
+
+<!--
+
+        //code.jquery.com/jquery-1.12.0.min.js
+        https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js
+        https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js
+        https://cdn.datatables.net/responsive/2.0.2/js/dataTables.responsive.min.js
+        https://cdn.datatables.net/responsive/2.0.2/js/responsive.bootstrap.min.js
+    -->
+
+
+
+
+
+    <?php echo $__env->yieldContent('footer'); ?>
+
+</body>
+
+</html>

@@ -1,449 +1,211 @@
+<?php $__env->startSection('header'); ?>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.min.css">
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="<?php echo e(asset('bootstrap-material-datetimepicker.css')); ?>" />
+
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="<?php echo e(asset('bootstrap-material-datetimepicker.js')); ?>"></script>
+
+
+<?php $__env->stopSection(); ?>
+
 <?php $__env->startSection('content'); ?>
 
-<h1 class="page-header">Demandes</h1>
+
+<hr>
+
 <div class="row">
 	<div class="col-lg-12">
-		<h1 class="page-header">Liste des demandes</h1>
-	</div>
-	<!-- /.col-lg-12 -->
-</div>
-<!-- /.row -->
-<div class="row">
-	<div class="col-lg-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				DataTables Advanced Tables
-			</div>
-			<!-- /.panel-heading -->
-			<div class="panel-body">
-				<div class="dataTable_wrapper">
-					<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
-						<thead>
-							<tr>
-								<th>Rendering engine</th>
-								<th>Browser</th>
-								<th>Platform(s)</th>
-								<th>Engine version</th>
-								<th>CSS grade</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="odd gradeX">
-								<td>Trident</td>
-								<td>Internet Explorer 4.0</td>
-								<td>Win 95+</td>
-								<td class="center">4</td>
-								<td class="center">X</td>
-							</tr>
-							<tr class="even gradeC">
-								<td>Trident</td>
-								<td>Internet Explorer 5.0</td>
-								<td>Win 95+</td>
-								<td class="center">5</td>
-								<td class="center">C</td>
-							</tr>
-							<tr class="odd gradeA">
-								<td>Trident</td>
-								<td>Internet Explorer 5.5</td>
-								<td>Win 95+</td>
-								<td class="center">5.5</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="even gradeA">
-								<td>Trident</td>
-								<td>Internet Explorer 6</td>
-								<td>Win 98+</td>
-								<td class="center">6</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="odd gradeA">
-								<td>Trident</td>
-								<td>Internet Explorer 7</td>
-								<td>Win XP SP2+</td>
-								<td class="center">7</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="even gradeA">
-								<td>Trident</td>
-								<td>AOL browser (AOL desktop)</td>
-								<td>Win XP</td>
-								<td class="center">6</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Firefox 1.0</td>
-								<td>Win 98+ / OSX.2+</td>
-								<td class="center">1.7</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Firefox 1.5</td>
-								<td>Win 98+ / OSX.2+</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Firefox 2.0</td>
-								<td>Win 98+ / OSX.2+</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Firefox 3.0</td>
-								<td>Win 2k+ / OSX.3+</td>
-								<td class="center">1.9</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Camino 1.0</td>
-								<td>OSX.2+</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Camino 1.5</td>
-								<td>OSX.3+</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Netscape 7.2</td>
-								<td>Win 95+ / Mac OS 8.6-9.2</td>
-								<td class="center">1.7</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Netscape Browser 8</td>
-								<td>Win 98SE+</td>
-								<td class="center">1.7</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Netscape Navigator 9</td>
-								<td>Win 98+ / OSX.2+</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.0</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">1</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.1</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">1.1</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.2</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">1.2</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.3</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">1.3</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.4</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">1.4</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.5</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">1.5</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.6</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">1.6</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.7</td>
-								<td>Win 98+ / OSX.1+</td>
-								<td class="center">1.7</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Mozilla 1.8</td>
-								<td>Win 98+ / OSX.1+</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Seamonkey 1.1</td>
-								<td>Win 98+ / OSX.2+</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Gecko</td>
-								<td>Epiphany 2.20</td>
-								<td>Gnome</td>
-								<td class="center">1.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Webkit</td>
-								<td>Safari 1.2</td>
-								<td>OSX.3</td>
-								<td class="center">125.5</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Webkit</td>
-								<td>Safari 1.3</td>
-								<td>OSX.3</td>
-								<td class="center">312.8</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Webkit</td>
-								<td>Safari 2.0</td>
-								<td>OSX.4+</td>
-								<td class="center">419.3</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Webkit</td>
-								<td>Safari 3.0</td>
-								<td>OSX.4+</td>
-								<td class="center">522.1</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Webkit</td>
-								<td>OmniWeb 5.5</td>
-								<td>OSX.4+</td>
-								<td class="center">420</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Webkit</td>
-								<td>iPod Touch / iPhone</td>
-								<td>iPod</td>
-								<td class="center">420.1</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Webkit</td>
-								<td>S60</td>
-								<td>S60</td>
-								<td class="center">413</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera 7.0</td>
-								<td>Win 95+ / OSX.1+</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera 7.5</td>
-								<td>Win 95+ / OSX.2+</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera 8.0</td>
-								<td>Win 95+ / OSX.2+</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera 8.5</td>
-								<td>Win 95+ / OSX.2+</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera 9.0</td>
-								<td>Win 95+ / OSX.3+</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera 9.2</td>
-								<td>Win 88+ / OSX.3+</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera 9.5</td>
-								<td>Win 88+ / OSX.3+</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Opera for Wii</td>
-								<td>Wii</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Nokia N800</td>
-								<td>N800</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Presto</td>
-								<td>Nintendo DS browser</td>
-								<td>Nintendo DS</td>
-								<td class="center">8.5</td>
-								<td class="center">C/A<sup>1</sup>
-								</td>
-							</tr>
-							<tr class="gradeC">
-								<td>KHTML</td>
-								<td>Konqureror 3.1</td>
-								<td>KDE 3.1</td>
-								<td class="center">3.1</td>
-								<td class="center">C</td>
-							</tr>
-							<tr class="gradeA">
-								<td>KHTML</td>
-								<td>Konqureror 3.3</td>
-								<td>KDE 3.3</td>
-								<td class="center">3.3</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeA">
-								<td>KHTML</td>
-								<td>Konqureror 3.5</td>
-								<td>KDE 3.5</td>
-								<td class="center">3.5</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeX">
-								<td>Tasman</td>
-								<td>Internet Explorer 4.5</td>
-								<td>Mac OS 8-9</td>
-								<td class="center">-</td>
-								<td class="center">X</td>
-							</tr>
-							<tr class="gradeC">
-								<td>Tasman</td>
-								<td>Internet Explorer 5.1</td>
-								<td>Mac OS 7.6-9</td>
-								<td class="center">1</td>
-								<td class="center">C</td>
-							</tr>
-							<tr class="gradeC">
-								<td>Tasman</td>
-								<td>Internet Explorer 5.2</td>
-								<td>Mac OS 8-X</td>
-								<td class="center">1</td>
-								<td class="center">C</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Misc</td>
-								<td>NetFront 3.1</td>
-								<td>Embedded devices</td>
-								<td class="center">-</td>
-								<td class="center">C</td>
-							</tr>
-							<tr class="gradeA">
-								<td>Misc</td>
-								<td>NetFront 3.4</td>
-								<td>Embedded devices</td>
-								<td class="center">-</td>
-								<td class="center">A</td>
-							</tr>
-							<tr class="gradeX">
-								<td>Misc</td>
-								<td>Dillo 0.8</td>
-								<td>Embedded devices</td>
-								<td class="center">-</td>
-								<td class="center">X</td>
-							</tr>
-							<tr class="gradeX">
-								<td>Misc</td>
-								<td>Links</td>
-								<td>Text only</td>
-								<td class="center">-</td>
-								<td class="center">X</td>
-							</tr>
-							<tr class="gradeX">
-								<td>Misc</td>
-								<td>Lynx</td>
-								<td>Text only</td>
-								<td class="center">-</td>
-								<td class="center">X</td>
-							</tr>
-							<tr class="gradeC">
-								<td>Misc</td>
-								<td>IE Mobile</td>
-								<td>Windows Mobile 6</td>
-								<td class="center">-</td>
-								<td class="center">C</td>
-							</tr>
-							<tr class="gradeC">
-								<td>Misc</td>
-								<td>PSP browser</td>
-								<td>PSP</td>
-								<td class="center">-</td>
-								<td class="center">C</td>
-							</tr>
-							<tr class="gradeU">
-								<td>Other browsers</td>
-								<td>All others</td>
-								<td>-</td>
-								<td class="center">-</td>
-								<td class="center">U</td>
-							</tr>
-						</tbody>
-					</table>
+		<div class="panel-group" id="accordion">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+							Recherche avancée
+						</a>
+					</h4>
 				</div>
-				<!-- /.table-responsive -->
-				<div class="well">
-					<h4>DataTables Usage Information</h4>
-					<p>DataTables is a very flexible, advanced tables plugin for jQuery. In SB Admin, we are using a specialized version of DataTables built for Bootstrap 3. We have also customized the table headings to use Font Awesome icons in place of images. For complete documentation on DataTables, visit their website at <a target="_blank" href="https://datatables.net/">https://datatables.net/</a>.</p>
-					<a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">View DataTables Documentation</a>
+				<div id="collapse2" class="panel-collapse collapse">
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-2">
+								<label> Date de creation </label>
+							</div>
+							<div class="col-lg-10">
+								<form class="form-inline">
+									<div class="form-group">
+										<label>Date Min </label>
+										<input type="text" class="form-control" id="date-creation-start">
+									</div>
+									<div class="form-group">
+										<label>Date Max</label>
+										<input type="text" class="form-control" id="date-creation-end">
+									</div>
+
+								</form>
+							</div>
+						</div>
+						<hr>
+						<div class="row">
+							<div class="col-lg-2">
+								<label>Date d'evenement</label>
+							</div>
+							<div class="col-lg-10">
+								<form class="form-inline">
+									<div class="form-group">
+										<label>Date Min </label>
+										<input type="text" class="form-control" id="date-event-start">
+									</div>
+									<div class="form-group">
+										<label>Date Max</label>
+										<input type="text" class="form-control" id="date-event-end">
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="panel-footer">
+
+						<a href="#" class="btn btn-primary">Cherhcer</a>
+
+					</div>
 				</div>
 			</div>
-			<!-- /.panel-body -->
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+							Liste des demandes
+						</a>
+					</h4>
+				</div>
+				<div id="collapse1" class="table-responsive">
+					<div class="panel-body" class="table-responsive">
+						<table class="table table-striped table-bordered dt-responsive nowrap" cellspacing="0" width="100%" cellspacing="0" id="example">
+							<thead>
+								<tr>
+									<th>Titre</th>
+									<th>etat</th>
+									<th>Nom du client</th>
+									<th>Langue initiale</th>
+									<th>Langue destination</th>
+									<th>Interpreteur</th>
+									<th>Prix</th>
+									<th>Date creation</th>
+									<th>Date d'evenement</th>
+									<th>Date Modification</th>
+									<th>adresse</th>
+									<th>Edit/Valide</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr>
+									<th>Titre</th>
+									<th>etat</th>
+									<th>Nom du client</th>
+									<th>Langue initiale</th>
+									<th>Langue destination</th>
+									<th>Interpreteur</th>
+									<th>Prix</th>
+									<th>Date creation</th>
+									<th>Date d'evenement</th>
+									<th>Date Modification</th>
+									<th>adresse</th>
+									<th></th>
+								</tr>
+							</tfoot>
+							<tbody>
+								<?php foreach($demandes as $demande): ?>
+								<tr>
+									<td><?php echo e($demande->titre); ?></td>
+									<td><?php echo e($demande->etat->libelle); ?></td>
+									<td><?php echo e($demande->client->nom); ?></td>
+									<td><?php echo e($demande->langueIni->content); ?></td>
+									<td><?php echo e($demande->langueDest->content); ?></td>
+									<td><?php echo e($demande->titre); ?></td>
+									<td><?php echo e($demande->titre); ?></td>
+									<td><?php echo e($demande->created_at); ?></td>
+									<td><?php echo e($demande->dateEvent); ?></td>
+									<td><?php echo e($demande->updated_at); ?></td>
+									<td><?php echo e($demande->adresse->adresse); ?></td>
+									<td><a href="/demande/edit/<?php echo e($demande->id); ?>" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Valide</a></td>
+								</tr>
+								<?php endforeach; ?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</div>
-		<!-- /.panel -->
 	</div>
-	<!-- /.col-lg-12 -->
 </div>
+
+<?php $__env->stopSection(); ?>
+
+
+<?php $__env->startSection('footer'); ?>
+
+
+
+<script>
+	$(document).ready(function() {
+
+// Setup - add a text input to each footer cell
+$('#example tfoot th').each( function () {
+	var title = $(this).text();
+	$(this).html( '<input type="text" placeholder="'+title+'" />' );
+} );
+
+table = $('#example').DataTable( {
+	dom: 'Bfrtip',
+	buttons: [
+	{
+		extend: 'colvis',
+		columns: ':not(:first-child)'
+	}
+	]
+});
+
+// Apply the search
+table.columns().every( function () {
+	var that = this;
+
+	$( 'input', this.footer() ).on( 'keyup change', function () {
+		if ( that.search() !== this.value ) {
+			that
+			.search( this.value )
+			.draw();
+		}
+	} );
+} );
+
+} );
+</script>
+
+<script type="text/javascript" src="https://rawgit.com/FezVrasta/bootstrap-material-design/master/dist/js/material.min.js"></script>
+<script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
+
+<script type="text/javascript">
+$('#date-creation-end').bootstrapMaterialDatePicker({ weekStart : 0 });
+$('#date-creation-start').bootstrapMaterialDatePicker({ weekStart : 0 }).on('change', function(e, date)
+{
+$('#date-creation-end').bootstrapMaterialDatePicker('setMinDate', date);
+}); 
+
+$('#date-event-end').bootstrapMaterialDatePicker({ weekStart : 0 });
+$('#date-event-start').bootstrapMaterialDatePicker({ weekStart : 0 }).on('change', function(e, date)
+{
+$('#date-event-end').bootstrapMaterialDatePicker('setMinDate', date);
+}); 
+</script>
+
+
 
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

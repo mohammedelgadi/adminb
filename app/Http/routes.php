@@ -15,11 +15,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
 Route::get('/client/add', function () {
     return view('clientform');
 });
 
-Route::get('/test', 'InterpreteurController@show');
+Route::get('/interpreteur/add', 'InterpreteurController@show');
 
 Route::post('/interpreteur/add', 'InterpreteurController@store');
 
@@ -29,18 +33,16 @@ Route::get('/clients', function () {
     return view('clients');
 });
 
-Route::get('/demande/add', function () {
-    return view('demandeform');
-});
+Route::get('/demande/add', 'DemandeController@add');
 
 Route::get('/demande/edit/{id}','DemandeController@edit' );
 
 Route::post('/demande/add','DemandeController@store' );
 
+Route::post('/demande/update','DemandeController@update');
 
-Route::get('/demandes', function () {
-    return view('demandes');
-});
+
+Route::get('/demandes', 'DemandeController@showAll');
 
 Route::post('/client/add','ClientController@store');
 

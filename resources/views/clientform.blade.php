@@ -1,9 +1,11 @@
 @extends('layout')
 
 @section('header')
-
+<!--
 
 <link rel="stylesheet" type="text/css" href="{{{ asset('bootstrap-tags.css') }}}" />
+
+-->
 
 @stop
 
@@ -32,7 +34,7 @@
 				</div>
 				<div class="form-group">
 					<label>Image : </label>
-					<input type="file" name="image">
+					<input type="file" name="image" value="{{ old('image') }}">
 				</div>
 				<div class="form-group">
 					<label>tel portable</label>
@@ -45,11 +47,6 @@
 				<div class="form-group">
 					<label>tel fixe</label>
 					<input class="form-control"  value="{{ old('tel_fixe') }}" name="tel_fixe" placeholder="telephone fixe">
-				</div>
-				<div class="form-group">
-					<label>Langues</label>
-					<div name="mamot" id="suggestOnClick"></div>
-					
 				</div>
 				<div class="form-group">
 					<label>Commentaire</label>
@@ -96,7 +93,10 @@
 @stop
 
 @section('footer')
+
+<!--
 <script src='{{{ asset("bootstrap-tags.js") }}}'></script>
+
 <script type="text/javascript">
 	$(function(){
 		$("#suggestOnClick").tags({
@@ -118,6 +118,8 @@
 	});
 
 </script>
+
+-->
 
 
 
