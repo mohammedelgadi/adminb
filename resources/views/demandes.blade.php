@@ -32,50 +32,50 @@
 					</h4>
 				</div>
 				<div id="collapse2" class="panel-collapse collapse">
-					<div class="panel-body">
-						<div class="row">
-							<div class="col-lg-2">
-								<label> Date de creation </label>
-							</div>
-							<div class="col-lg-10">
-								<form class="form-inline">
+					<form class="form-inline" role="form" method="POST" action="/demandes">
+						{!! csrf_field() !!}
+						<div class="panel-body">
+							<div class="row">
+								<div class="col-lg-2">
+									<label>Date d'evenement</label>
+								</div>
+								<div class="col-lg-10">
 									<div class="form-group">
 										<label>Date Min </label>
-										<input type="text" class="form-control" id="date-creation-start">
+										<input type="text" class="form-control" name="dateEventMin" id="date-event-start">
 									</div>
 									<div class="form-group">
 										<label>Date Max</label>
-										<input type="text" class="form-control" id="date-creation-end">
+										<input type="text" class="form-control" name="dateEventMax" id="date-event-end">
 									</div>
-
-								</form>
+								</div>
 							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-lg-2">
-								<label>Date d'evenement</label>
-							</div>
-							<div class="col-lg-10">
-								<form class="form-inline">
+							<hr>
+							<div class="row">
+								<div class="col-lg-2">
+									<label> Date de creation </label>
+								</div>
+								<div class="col-lg-10">
 									<div class="form-group">
 										<label>Date Min </label>
-										<input type="text" class="form-control" id="date-event-start">
+										<input type="text" class="form-control" name="dateCreationMin" id="date-creation-start">
 									</div>
 									<div class="form-group">
 										<label>Date Max</label>
-										<input type="text" class="form-control" id="date-event-end">
+										<input type="text" class="form-control" name="dateCreationMax" id="date-creation-end">
 									</div>
 
-								</form>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="panel-footer">
+						<div class="panel-footer">
 
-						<a href="#" class="btn btn-primary">Cherhcer</a>
+							<button type="submit" class="btn btn-outline btn-primary">Ajouter</button>
 
-					</div>
+
+						</div>
+					</form>
+
 				</div>
 			</div>
 			<div class="panel panel-primary">
@@ -147,11 +147,71 @@
 	</div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header  modal-header-danger">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
+			</div>
+			<div class="modal-body">
+				<ul>
+					@foreach($errors->all() as $error)
+					<a href="#" class="list-group-item">
+						<i class="fa fa fa-times fa-fw"></i> {{$error}}
+					</a>
+					@endforeach
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="size" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header modal-header-success">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Nouvelle demande ajoutée</h4>
+			</div>
+			<div class="modal-body">
+				@if(isset($size))
+				<label>Nombre de demandes trouvées est : {{$size}}</label>
+				@endif
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+
 @stop
 
 
 @section('footer')
 
+<script type="text/javascript">
+	@if (count($errors) > 0)
+	$('#errorModal').modal('show');
+	@endif
+</script>
+
+<script type="text/javascript">
+	
+@if(isset($size))
+	$('#size').modal('show');
+@endif
+
+</script>
 
 
 <script>
@@ -194,17 +254,17 @@ table.columns().every( function () {
 
 
 <script type="text/javascript">
-$('#date-creation-end').bootstrapMaterialDatePicker({ weekStart : 0 });
-$('#date-creation-start').bootstrapMaterialDatePicker({ weekStart : 0 }).on('change', function(e, date)
-{
-$('#date-creation-end').bootstrapMaterialDatePicker('setMinDate', date);
-}); 
+	$('#date-creation-end').bootstrapMaterialDatePicker({ weekStart : 0, format: 'YYYY-MM-DD HH:mm:00' });
+	$('#date-creation-start').bootstrapMaterialDatePicker({ weekStart : 0,format: 'YYYY-MM-DD HH:mm:00' }).on('change', function(e, date)
+	{
+		$('#date-creation-end').bootstrapMaterialDatePicker('setMinDate', date);
+	}); 
 
-$('#date-event-end').bootstrapMaterialDatePicker({ weekStart : 0 });
-$('#date-event-start').bootstrapMaterialDatePicker({ weekStart : 0 }).on('change', function(e, date)
-{
-$('#date-event-end').bootstrapMaterialDatePicker('setMinDate', date);
-}); 
+	$('#date-event-end').bootstrapMaterialDatePicker({ weekStart : 0, format: 'YYYY-MM-DD HH:mm:00'});
+	$('#date-event-start').bootstrapMaterialDatePicker({ weekStart : 0, format: 'YYYY-MM-DD HH:mm:00' }).on('change', function(e, date)
+	{
+		$('#date-event-end').bootstrapMaterialDatePicker('setMinDate', date);
+	}); 
 </script>
 
 

@@ -28,35 +28,7 @@
 
 
 
-<style type="text/css">
 
-	.modal-header-danger {
-		color:#fff;
-		padding:9px 15px;
-		border-bottom:1px solid #eee;
-		background-color: #d9534f;
-		-webkit-border-top-left-radius: 5px;
-		-webkit-border-top-right-radius: 5px;
-		-moz-border-radius-topleft: 5px;
-		-moz-border-radius-topright: 5px;
-		border-top-left-radius: 5px;
-		border-top-right-radius: 5px;
-	}
-
-	.modal-header-success {
-		color:#fff;
-		padding:9px 15px;
-		border-bottom:1px solid #eee;
-		background-color: #5cb85c;
-		-webkit-border-top-left-radius: 5px;
-		-webkit-border-top-right-radius: 5px;
-		-moz-border-radius-topleft: 5px;
-		-moz-border-radius-topright: 5px;
-		border-top-left-radius: 5px;
-		border-top-right-radius: 5px;
-	}
-
-</style>
 
 @stop
 
@@ -388,7 +360,7 @@
 <script type="text/javascript">
 	$('#date-format').bootstrapMaterialDatePicker
 	({
-		format: 'YYYY-MM-DD HH:mm:ss'
+		format: 'YYYY-MM-DD HH:mm:00'
 	});	
 </script>
 

@@ -114,4 +114,55 @@ class DemandeController extends Controller
 
   }
 
+
+  public function getByDate(Request $request){
+
+   $this->validate($request, [
+    'dateEventMin' => 'required_without_all:dateEventMax,dateCreationMin,dateCreationMax',
+    'dateEventMax' => 'required_without_all:dateEventMin,dateCreationMin,dateCreationMax',
+    'dateCreationMin' => 'required_without_all:dateEventMin,dateEventMax,dateCreationMax',
+    'dateCreationMax' => 'required_without_all:dateEventMin,dateEventMax,dateCreationMin'
+    ]);
+
+   //return $request->dateEventMax;
+   $langues = Lang::all();
+
+   $size = 0;
+
+
+  if(!empty($request->dateEventMax)){
+    $demande = Demande::where('dateEvent', '<=', $request->dateEventMax); 
+  }
+
+  if(!empty($request->dateEventMin)){
+    $demande = $demande->where('dateEvent', '>=', $request->dateEventMin);
+  }
+
+  if(!empty($request->dateCreationMax)){
+    $demande = $demande->where('created_at', '<=', $request->dateCreationMax);
+  }
+
+  if(!empty($request->dateCreationMin)){
+    $demande = $demande->where('created_at', '>=', $request->dateCreationMin);
+  }
+
+  $demande = $demande->get();
+
+  if(empty($demande)){
+    $demande = Demande::all();
+  }else{
+    $size = count($demande);
+  }
+
+  
+  return view('demandes', 
+    [
+    'langues' => $langues,
+    'demandes' => $demande,
+    'size' => $size    
+    ]);
+
+  
+}
+
 }

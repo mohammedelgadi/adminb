@@ -453,7 +453,7 @@ function geolocate() {
 <script type="text/javascript">
 	$('#date-format').bootstrapMaterialDatePicker
 	({
-		format: 'Y-m-d h:MM:00'
+		format: 'YYYY-MM-DD HH:mm:00'
 	});	
 </script>
 
