@@ -102,7 +102,7 @@
 									<th>Date d'evenement</th>
 									<th>Date Modification</th>
 									<th>adresse</th>
-									<th>Edit/Valide</th>
+									<th>Edit/Delete</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -135,7 +135,7 @@
 									<td>{{$demande->dateEvent}}</td>
 									<td>{{$demande->updated_at}}</td>
 									<td>{{$demande->adresse->adresse}}</td>
-									<td><a href="/demande/edit/{{$demande->id}}" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Valide</a></td>
+									<td><a href="/demande/edit/{{$demande->id}}" class="editor_edit"><span class="glyphicon glyphicon-pencil"></span></a> / <a href="" class="editor_remove"><span class="glyphicon glyphicon-trash"></span></a></td>
 								</tr>
 								@endforeach
 							</tbody>

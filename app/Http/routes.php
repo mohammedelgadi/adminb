@@ -15,9 +15,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/calandar', function () {
-    return view('calandar');
-});
+
+Route::get('/calandar', 'Controller@calandar');
+
+Route::get('/devis', 'Controller@devis');
+
 
 Route::get('/test', function () {
     return view('test');
@@ -31,9 +33,6 @@ Route::get('/interpreteur/add', 'InterpreteurController@show');
 
 Route::post('/interpreteur/add', 'InterpreteurController@store');
 
-
-
-
 Route::get('/clients', function () {
     return view('clients');
 });
@@ -46,7 +45,6 @@ Route::post('/demande/add','DemandeController@store' );
 
 Route::post('/demande/update','DemandeController@update');
 
-
 Route::get('/demandes', 'DemandeController@showAll');
 
 Route::post('/demandes', 'DemandeController@getByDate');
@@ -55,9 +53,12 @@ Route::post('/client/add','ClientController@store');
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
+
 Route::post('auth/login', 'Auth\AuthController@postLogin');
+
 Route::get('auth/logout', 'Auth\AuthController@logout');
 
 // Registration routes...
 Route::get('auth/register', 'Auth\AuthController@getRegister');
+
 Route::post('auth/register', 'Auth\AuthController@postRegister');

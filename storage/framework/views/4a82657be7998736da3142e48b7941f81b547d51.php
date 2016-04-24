@@ -25,35 +25,7 @@
 
 
 
-<style type="text/css">
 
-	.modal-header-danger {
-		color:#fff;
-		padding:9px 15px;
-		border-bottom:1px solid #eee;
-		background-color: #d9534f;
-		-webkit-border-top-left-radius: 5px;
-		-webkit-border-top-right-radius: 5px;
-		-moz-border-radius-topleft: 5px;
-		-moz-border-radius-topright: 5px;
-		border-top-left-radius: 5px;
-		border-top-right-radius: 5px;
-	}
-
-	.modal-header-success {
-		color:#fff;
-		padding:9px 15px;
-		border-bottom:1px solid #eee;
-		background-color: #5cb85c;
-		-webkit-border-top-left-radius: 5px;
-		-webkit-border-top-right-radius: 5px;
-		-moz-border-radius-topleft: 5px;
-		-moz-border-radius-topright: 5px;
-		border-top-left-radius: 5px;
-		border-top-right-radius: 5px;
-	}
-
-</style>
 
 <?php $__env->stopSection(); ?>
 
@@ -75,14 +47,43 @@
 							<p class="help-block">Saisir l'objet de la demande.</p>
 						</div>
 						<div class="form-group">
-							<label>Date de l'evenement</label>
-							<div class="input-group date" >
-								<!--<input type="text" name="dateEvent" value="<?php echo e($demande->dateEvent); ?>" class="form-control" id="datetimepicker_mask">-->
-								<input type="text" name="dateEvent" id="date-format" class="form-control floating-label" value="<?php echo e($demande->dateEvent); ?>" >
-								<div class="input-group-addon">
-									<span class="glyphicon glyphicon-th"></span>
+							<label>Etat de la demande</label>
+							<select class="form-control" name="etat_id">
+								<option value=""></option>
+								<?php foreach($etats as $etat): ?>
+								<?php if($etat->id == $demande->etat->id): ?>
+								<option value="<?php echo e($etat->id); ?>" selected><?php echo e($etat->libelle); ?></option>
+								<?php else: ?>
+								<option value="<?php echo e($etat->id); ?>"><?php echo e($etat->libelle); ?></option>
+
+								<?php endif; ?>
+								<?php endforeach; ?>
+							</select>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-lg-6">
+									<label>Date de debut de l'evenement</label>
+									<div class="input-group date" >
+										<!--<input type="text" name="dateEvent" value="<?php echo e($demande->dateEvent); ?>" class="form-control" id="datetimepicker_mask">-->
+										<input type="text" name="dateEvent" id="date-start" class="form-control floating-label" value="<?php echo e($demande->dateEvent); ?>" >
+										<div class="input-group-addon">
+											<span class="glyphicon glyphicon-th"></span>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<label>Date de fin de l'evenement</label>
+									<div class="input-group date" >
+										<!--<input type="text" name="dateEvent" value="<?php echo e($demande->dateEvent); ?>" class="form-control" id="datetimepicker_mask">-->
+										<input type="text" name="dateEndEvent" id="date-end" class="form-control floating-label" value="<?php echo e($demande->dateEndEvent); ?>" >
+										<div class="input-group-addon">
+											<span class="glyphicon glyphicon-th"></span>
+										</div>
+									</div>
 								</div>
 							</div>
+							
 						</div>
 
 						<div class="form-group">
@@ -124,7 +125,9 @@
 				</div>
 				<div class="panel panel-default">
 					<div class="row">
-						<div class="col-lg-6">
+						<div class="col-lg-1">
+						</div>
+						<div class="col-lg-5">
 							<div class="form-group">
 								<label>Langue initiale: </label>
 								<select class="form-control" name="langue_ini">
@@ -140,7 +143,7 @@
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-5">
 							<div class="form-group">
 								<label>Langue destination : </label>
 								<select class="form-control" name="langue_dest">
@@ -155,6 +158,8 @@
 									<?php endforeach; ?>
 								</select>
 							</div>
+						</div>
+						<div class="col-lg-1">
 						</div>
 					</div>
 				</div>
@@ -197,7 +202,15 @@
 									</a>
 								</div>
 								<!-- /.list-group -->
-								<a href="#" class="btn btn-default btn-block"  data-toggle="modal" data-target="#devisModal">View All Alerts</a>
+								
+								<div class="row">
+									<div class="col-lg-6">
+										<a href="#" class="btn btn-default btn-block"  data-toggle="modal" data-target="#devisModal">Afficher tous les devis</a>
+									</div>
+									<div class="col-lg-6">
+										<a href="#" class="btn btn-default btn-block"  data-toggle="modal" data-target="#devisModal">Ajouter un devis</a>
+									</div>
+								</div>
 								<!-- Modal -->
 								<div class="modal fade" id="devisModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog modal-lg">
@@ -260,7 +273,15 @@
 									</a>
 								</div>
 								<!-- /.list-group -->
-								<a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#facturesModal">View All Alerts</a>
+								
+								<div class="row">
+									<div class="col-lg-6">
+										<a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#facturesModal">Afficher toutes les factures</a>
+									</div>
+									<div class="col-lg-6">
+										<a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#facturesModal">Afficher toutes les factures</a>
+									</div>
+								</div>
 
 								<!-- Modal -->
 								<div class="modal fade" id="facturesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -385,9 +406,19 @@
 
 
 <script type="text/javascript">
-	$('#date-format').bootstrapMaterialDatePicker
-	({
-		format: 'YYYY-MM-DD HH:mm:ss'
+
+	$('#date-end').bootstrapMaterialDatePicker({ 
+		weekStart : 0 ,
+		format: 'YYYY-MM-DD HH:mm:00'
+	});
+
+	$('#date-start').bootstrapMaterialDatePicker({ 
+		weekStart : 0 ,
+		format: 'YYYY-MM-DD HH:mm:00'
+
+	}).on('change', function(e, date)
+	{
+		$('#date-end').bootstrapMaterialDatePicker('setMinDate', date);
 	});	
 </script>
 

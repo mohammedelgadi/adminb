@@ -30,6 +30,7 @@ class CreateDemandeRequest extends Request
         'content' => 'required',
         'client_id' => 'required',
         'dateEvent' => 'required',
+        'dateEndEvent' => 'required',
         'langue_ini' => 'required',
         'langue_dest' => 'required',
         'code_postal' => 'required',

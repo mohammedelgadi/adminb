@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Demande extends Model
 {
 	protected $fillable = [
-        'titre', 'content', 'client_id' , 'tel_portable', 'commentaire' , 'tel_fixe' , 'dateEvent' , 'langue_dest', 'langue_ini', 'adresse_id'
+        'titre', 'content', 'client_id' , 'tel_portable', 'commentaire' , 'tel_fixe' , 'dateEvent' , 'dateEndEvent' , 'langue_dest', 'langue_ini', 'adresse_id'
     ];
 
     public function client(){

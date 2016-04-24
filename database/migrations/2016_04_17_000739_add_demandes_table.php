@@ -33,6 +33,7 @@ class AddDemandesTable extends Migration
             $table->foreign('etat_id')->references('id')->on('etats');
             
             $table->timestamp('dateEvent');
+            $table->timestamp('dateEndEvent');
             $table->timestamps();
         });
     }

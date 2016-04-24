@@ -30,7 +30,7 @@
 					</h4>
 				</div>
 				<div id="collapse2" class="panel-collapse collapse">
-					<form class="form-inline" role="form" method="POST" action="/demandes/getByDate">
+					<form class="form-inline" role="form" method="POST" action="/demandes">
 						<?php echo csrf_field(); ?>
 
 						<div class="panel-body">
@@ -101,7 +101,7 @@
 									<th>Date d'evenement</th>
 									<th>Date Modification</th>
 									<th>adresse</th>
-									<th>Edit/Valide</th>
+									<th>Edit/Delete</th>
 								</tr>
 							</thead>
 							<tfoot>
@@ -134,7 +134,7 @@
 									<td><?php echo e($demande->dateEvent); ?></td>
 									<td><?php echo e($demande->updated_at); ?></td>
 									<td><?php echo e($demande->adresse->adresse); ?></td>
-									<td><a href="/demande/edit/<?php echo e($demande->id); ?>" class="editor_edit">Edit</a> / <a href="" class="editor_remove">Valide</a></td>
+									<td><a href="/demande/edit/<?php echo e($demande->id); ?>" class="editor_edit"><span class="glyphicon glyphicon-pencil"></span></a> / <a href="" class="editor_remove"><span class="glyphicon glyphicon-trash"></span></a></td>
 								</tr>
 								<?php endforeach; ?>
 							</tbody>

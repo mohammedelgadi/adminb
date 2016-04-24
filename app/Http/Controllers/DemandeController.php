@@ -12,6 +12,8 @@ use App\Adresse;
 
 use App\Lang;
 
+use App\Client;
+
 use Session;
 
 use App\Etat;
@@ -29,6 +31,7 @@ class DemandeController extends Controller
 //CreateDemande
   public function store(CreateDemandeRequest $request){
 
+    $clients = Client::all();
     $demande = new Demande($request->all());
     $adresse = new Adresse($request->all());
     $demande->etat()->associate(Etat::find(1));
@@ -43,7 +46,9 @@ class DemandeController extends Controller
       'titre'   => $demande->titre,
       'client' => $demande->client->nom.' '.$demande->client->prenom,
       'dateEvent' => $demande->dateEvent,
-      'langues' => $langues
+      'langues' => $langues,
+      'clients' => $clients,
+      'id' => $demande->id
       ]);
       //return $request->all();
   }
@@ -51,12 +56,14 @@ class DemandeController extends Controller
   public function edit($id){
     $langues = Lang::all();
     $demande = Demande::find($id);
+    $etats = Etat::all();
 
     if(!is_null($demande)){
       return view('demandeEdit', 
         [
         'langues' => $langues,
-        'demande' => $demande
+        'demande' => $demande,
+        'etats' => $etats
         ]);
     }
 
@@ -65,9 +72,11 @@ class DemandeController extends Controller
 
   public function add(){
     $langues = Lang::all();
+    $clients = Client::all();
     return view('demandeform', 
       [
-      'langues' => $langues      
+      'langues' => $langues,
+      'clients' => $clients      
       ]);
   }
 
@@ -87,7 +96,8 @@ class DemandeController extends Controller
     $this->validate($request, [
       'titre' => 'required',
       'content' => 'required',
-      'dateEvent' => 'required'
+      'dateEvent' => 'required',
+      'dateEndEvent' => 'required'
       ]);
 
     $id = $request->id;
@@ -98,6 +108,7 @@ class DemandeController extends Controller
         $demande->titre = $request->titre;
         $demande->content = $request->content;
         $demande->dateEvent = $request->dateEvent;
+        $demande->dateEndEvent = $request->dateEndEvent;
         $demande->save();
       }
 
@@ -130,7 +141,7 @@ class DemandeController extends Controller
    $size = 0;
 
 
-  if(!empty($request->dateEventMax)){
+   if(!empty($request->dateEventMax)){
     $demande = Demande::where('dateEvent', '<=', $request->dateEventMax); 
   }
 

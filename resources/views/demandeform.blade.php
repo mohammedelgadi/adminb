@@ -68,11 +68,24 @@
 									<p class="help-block">Saisir l'objet de la demande.</p>
 								</div>
 								<div class="form-group">
-									<label>Date de l'evenement</label>
-									<div class="input-group date" >
-										<input type="text" name="dateEvent" id="date-format" class="form-control floating-label" placeholder="Begin Date Time">
-										<div class="input-group-addon">
-											<span class="glyphicon glyphicon-th"></span>
+									<div class="row">
+										<div class="col-lg-6">
+											<label>Date de debut</label>
+											<div class="input-group date" >
+												<input type="text" name="dateEvent" id="date-start" class="form-control floating-label" value="{{ old('dateEvent') }}" placeholder="Begin Date Time">
+												<div class="input-group-addon">
+													<span class="glyphicon glyphicon-th"></span>
+												</div>
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<label>Date de fin</label>
+											<div class="input-group date" >
+												<input type="text" name="dateEndEvent" id="date-end" class="form-control floating-label" value="{{ old('dateEndEvent') }}" placeholder="Begin Date Time">
+												<div class="input-group-addon">
+													<span class="glyphicon glyphicon-th"></span>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -114,7 +127,7 @@
 								</div>
 								<div class="form-group">
 									<label>Contenu de la demande</label>
-									<textarea class="form-control"  rows="15" name="content">{{ old('content') }}</textarea>
+									<textarea class="form-control"  rows="10" name="content">{{ old('content') }}</textarea>
 									<p class="help-block">Saisir le contenu de la demande.</p>
 								</div>
 								<input type="hidden" name="client_id" value="" id="client">
@@ -130,7 +143,7 @@
 								<div class="panel-heading">
 									<h4 class="panel-title">
 										<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-											Liste des utilisateurs
+											Liste des clients
 										</a>
 									</h4>
 								</div>
@@ -154,54 +167,16 @@
 
 												</tr>
 											</tfoot>
-											<tr>
-												<td>1</td>
-												<td>Mohammed</td>
-												<td>EL GADI</td>
-												<td>Comment</td>
-											</tr>
-											<tr>
-												<td>2</td>
-												<td>Shad Decker</td>
-												<td><input class="form-control" id="disabledInput" type="text" placeholder="Disabled input" disabled></td>
-												<td><a id="1">edit</a></td>
 
-											</tr>
+											@foreach($clients as $client)
 											<tr>
-												<td>3</td>
-												<td>Michael Bruce</td>
-												<td>Javascript Developer</td>
-												<td>Singapore</td>
-
+												<td>{{$client->id}}</td>
+												<td>{{$client->nom}}</td>
+												<td>{{$client->prenom}}</td>
+												<td>{{$client->email}}</td>
 											</tr>
-											<tr>
-												<td>4</td>
-												<td>Michael Bruce</td>
-												<td>Javascript Developer</td>
-												<td>Singapore</td>
+											@endforeach
 
-											</tr>
-											<tr>
-												<td>5</td>
-												<td>Michael Bruce</td>
-												<td>Javascript Developer</td>
-												<td>Singapore</td>
-
-											</tr>
-											<tr>
-												<td>6</td>
-												<td>Michael Bruce</td>
-												<td>Javascript Developer</td>
-												<td>Singapore</td>
-
-											</tr>
-											<tr>
-												<td>7</td>
-												<td>Donna Snider</td>
-												<td>Customer Support</td>
-												<td>New York</td>
-
-											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -304,7 +279,8 @@
 					<dt>Date de l'evenement :</dt>
 					<dd>{{$dateEvent}}</dd>
 					<dt>Demandeur :</dt>
-					<dd>{{$client}}</dd>
+					<dd>{{$client->nom}} {{$client->prenom}}</dd>
+					<dt><a href="/demande/edit/{{$id}}">Edit</a></dt>
 				</dl>
 				@endif
 			</div>
@@ -407,7 +383,7 @@ function fillInAddress() {
   var place = autocomplete.getPlace();
 
   for (var component in componentForm) {
-  	//document.getElementById(component).value = '';
+  	document.getElementById(component).value = '';
   	document.getElementById(component).disabled = false;
   }
 
@@ -451,9 +427,23 @@ function geolocate() {
 
 
 <script type="text/javascript">
-	$('#date-format').bootstrapMaterialDatePicker
+	/*$('#date-format').bootstrapMaterialDatePicker
 	({
 		format: 'YYYY-MM-DD HH:mm:00'
+	});
+	*/
+	$('#date-end').bootstrapMaterialDatePicker({ 
+		weekStart : 0 ,
+		format: 'YYYY-MM-DD HH:mm:00'
+	});
+
+	$('#date-start').bootstrapMaterialDatePicker({ 
+		weekStart : 0 ,
+		format: 'YYYY-MM-DD HH:mm:00'
+
+	}).on('change', function(e, date)
+	{
+		$('#date-end').bootstrapMaterialDatePicker('setMinDate', date);
 	});	
 </script>
 
