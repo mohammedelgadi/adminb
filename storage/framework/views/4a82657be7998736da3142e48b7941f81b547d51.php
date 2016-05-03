@@ -115,12 +115,8 @@
 								<span class="glyphicon glyphicon-phone-alt"> <?php echo e($demande->client->tel_portable); ?> </span><br/>
 								<span class="glyphicon glyphicon-earphone"> <?php echo e($demande->client->tel_fixe); ?></span><br/>
 								<span class="glyphicon glyphicon-globe"> <?php echo e($demande->client->email); ?></span><br/>
-
-								
 							</div>
-
 						</div>
-						
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -208,7 +204,7 @@
 										<a href="#" class="btn btn-default btn-block"  data-toggle="modal" data-target="#devisModal">Afficher tous les devis</a>
 									</div>
 									<div class="col-lg-6">
-										<a href="#" class="btn btn-default btn-block"  data-toggle="modal" data-target="#devisModal">Ajouter un devis</a>
+										<a href="/devis/add/<?php echo e($demande->id); ?>" class="btn btn-default btn-block">Ajouter un devis</a>
 									</div>
 								</div>
 								<!-- Modal -->

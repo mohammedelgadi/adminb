@@ -30,5 +30,9 @@ class Demande extends Model
     	return $this->belongsTo(Etat::class);
     }
 
+    public function devies(){
+        return $this->hasMany(Devie::class);
+    }
+
 
 }

@@ -117,12 +117,8 @@
 								<span class="glyphicon glyphicon-phone-alt"> {{$demande->client->tel_portable}} </span><br/>
 								<span class="glyphicon glyphicon-earphone"> {{$demande->client->tel_fixe}}</span><br/>
 								<span class="glyphicon glyphicon-globe"> {{$demande->client->email}}</span><br/>
-
-								
 							</div>
-
 						</div>
-						
 					</div>
 				</div>
 				<div class="panel panel-default">
@@ -210,7 +206,7 @@
 										<a href="#" class="btn btn-default btn-block"  data-toggle="modal" data-target="#devisModal">Afficher tous les devis</a>
 									</div>
 									<div class="col-lg-6">
-										<a href="#" class="btn btn-default btn-block"  data-toggle="modal" data-target="#devisModal">Ajouter un devis</a>
+										<a href="/devis/add/{{$demande->id}}" class="btn btn-default btn-block">Ajouter un devis</a>
 									</div>
 								</div>
 								<!-- Modal -->

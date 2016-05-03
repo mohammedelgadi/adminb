@@ -18,12 +18,12 @@ Route::get('/', function () {
 
 Route::get('/calandar', 'Controller@calandar');
 
-Route::get('/devis', 'Controller@devis');
+Route::get('/devis', 'DevisController@edit');
+
+Route::post('/devis/add','DevisController@store');
 
 
-Route::get('/test', function () {
-    return view('test');
-});
+Route::get('/devis/add/{id}','DevisController@devis');
 
 Route::get('/client/add', function () {
     return view('clientform');

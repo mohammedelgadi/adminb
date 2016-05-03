@@ -70,7 +70,7 @@
 										<div class="col-lg-6">
 											<label>Date de debut</label>
 											<div class="input-group date" >
-												<input type="text" name="dateEvent" id="date-start" class="form-control floating-label" value="<?php echo e(old('dateEvent')); ?>" placeholder="Begin Date Time">
+												<input type="text" name="dateEvent" id="date-start" class="form-control floating-label" value="<?php echo e(old('dateEvent')); ?>" placeholder="Date de debut">
 												<div class="input-group-addon">
 													<span class="glyphicon glyphicon-th"></span>
 												</div>
@@ -79,7 +79,7 @@
 										<div class="col-lg-6">
 											<label>Date de fin</label>
 											<div class="input-group date" >
-												<input type="text" name="dateEndEvent" id="date-end" class="form-control floating-label" value="<?php echo e(old('dateEndEvent')); ?>" placeholder="Begin Date Time">
+												<input type="text" name="dateEndEvent" id="date-end" class="form-control floating-label" value="<?php echo e(old('dateEndEvent')); ?>" placeholder="Date de fin">
 												<div class="input-group-addon">
 													<span class="glyphicon glyphicon-th"></span>
 												</div>
@@ -115,7 +115,6 @@
 													<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
 													<?php else: ?>
 													<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
-
 													<?php endif; ?>
 													<?php endforeach; ?>
 												</select>
@@ -165,61 +164,62 @@
 
 												</tr>
 											</tfoot>
+											<tbody>
+												<?php foreach($clients as $client): ?>
+												<tr>
+													<td><?php echo e($client->id); ?></td>
+													<td><?php echo e($client->nom); ?></td>
+													<td><?php echo e($client->prenom); ?></td>
+													<td><?php echo e($client->email); ?></td>
+												</tr>
+												<?php endforeach; ?>
 
-											<?php foreach($clients as $client): ?>
-											<tr>
-												<td><?php echo e($client->id); ?></td>
-												<td><?php echo e($client->nom); ?></td>
-												<td><?php echo e($client->prenom); ?></td>
-												<td><?php echo e($client->email); ?></td>
-											</tr>
-											<?php endforeach; ?>
-
-										</tbody>
-									</table>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-										L'adresse de la demande
-									</a>
-								</h4>
-							</div>
-							<div id="collapse2" class="panel-collapse collapse">
-								<div class="panel-body">
-									<div class="form-group">
-										<label>Adresse</label>
-										<input class="form-control" name="adresse" value="<?php echo e(old('adresse')); ?>" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
-									</div>
-									<div class="form-group">
-										<label>Numero</label>
-										<input class="form-control" name="numero" value="<?php echo e(old('numero')); ?>" id="street_number">
-									</div>
-									<div class="form-group">
-										<label>Route</label>
-										<input class="form-control" name="route" value="<?php echo e(old('route')); ?>" id="route" >
-									</div>
-									<div class="form-group">
-										<label>Code postal</label>
-										<input class="form-control" name="code_postal" value="<?php echo e(old('code_postal')); ?>" id="postal_code"
-										type="text">
-									</div>
-									<div class="form-group">
-										<label>Ville</label>
-										<input class="form-control" name="ville" value="<?php echo e(old('ville')); ?>" id="locality"
-										type="text">
-									</div>
-									<div class="form-group">
-										<label>Pays</label>
-										<input class="form-control" name="pays" value="<?php echo e(old('pays')); ?>" id="country">
-									</div>
-									<div class="form-group">
-										<label>Departement</label>
-										<input class="form-control" name="departement" value="<?php echo e(old('departement')); ?>" id="administrative_area_level_1">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+											L'adresse de la demande
+										</a>
+									</h4>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="form-group">
+											<label>Adresse</label>
+											<input class="form-control" name="adresse" value="<?php echo e(old('adresse')); ?>" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
+										</div>
+										<div class="form-group">
+											<label>Numero</label>
+											<input class="form-control" name="numero" value="<?php echo e(old('numero')); ?>" id="street_number">
+										</div>
+										<div class="form-group">
+											<label>Route</label>
+											<input class="form-control" name="route" value="<?php echo e(old('route')); ?>" id="route" >
+										</div>
+										<div class="form-group">
+											<label>Code postal</label>
+											<input class="form-control" name="code_postal" value="<?php echo e(old('code_postal')); ?>" id="postal_code"
+											type="text">
+										</div>
+										<div class="form-group">
+											<label>Ville</label>
+											<input class="form-control" name="ville" value="<?php echo e(old('ville')); ?>" id="locality"
+											type="text">
+										</div>
+										<div class="form-group">
+											<label>Pays</label>
+											<input class="form-control" name="pays" value="<?php echo e(old('pays')); ?>" id="country">
+										</div>
+										<div class="form-group">
+											<label>Departement</label>
+											<input class="form-control" name="departement" value="<?php echo e(old('departement')); ?>" id="administrative_area_level_1">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -228,129 +228,117 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
 
-<!-- Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header  modal-header-danger">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
-			</div>
-			<div class="modal-body">
-				<ul>
-					<?php foreach($errors->all() as $error): ?>
-					<a href="#" class="list-group-item">
-						<i class="fa fa fa-times fa-fw"></i> <?php echo e($error); ?>
+	<!-- Modal -->
+	<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header  modal-header-danger">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<?php foreach($errors->all() as $error): ?>
+						<a href="#" class="list-group-item">
+							<i class="fa fa fa-times fa-fw"></i> <?php echo e($error); ?>
 
-					</a>
-					<?php endforeach; ?>
-				</ul>
+						</a>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
+			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-content -->
+		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal-dialog -->
-</div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="sucess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header modal-header-success">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Nouvelle demande ajoutée</h4>
-			</div>
-			<div class="modal-body">
+	<!-- Modal -->
+	<div class="modal fade" id="sucess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header modal-header-success">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Nouvelle demande ajoutée</h4>
+				</div>
+				<div class="modal-body">
 
-				<?php if(isset($message)): ?>
-				<dl>
-					<dt><?php echo e($message); ?></dt>
-					<dd><?php echo e($creerLe); ?></dd>
-					<dt>Titre :</dt>
-					<dd><?php echo e($titre); ?></dd>
-					<dt>Date de l'evenement :</dt>
-					<dd><?php echo e($dateEvent); ?></dd>
-					<dt>Demandeur :</dt>
-					<dd><?php echo e($client->nom); ?> <?php echo e($client->prenom); ?></dd>
-					<dt><a href="/demande/edit/<?php echo e($id); ?>">Edit</a></dt>
-				</dl>
-				<?php endif; ?>
+					<?php if(isset($message)): ?>
+					<dl>
+						<dt><?php echo e($message); ?></dt>
+						<dd><?php echo e($creerLe); ?></dd>
+						<dt>Titre :</dt>
+						<dd><?php echo e($titre); ?></dd>
+						<dt>Date de l'evenement :</dt>
+						<dd><?php echo e($dateEvent); ?></dd>
+						<dt>Demandeur :</dt>
+						<dd><?php echo e($client->nom); ?> <?php echo e($client->prenom); ?></dd>
+						<dt><a href="/demande/edit/<?php echo e($id); ?>">Edit</a></dt>
+					</dl>
+					<?php endif; ?>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
+			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-content -->
+		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal-dialog -->
-</div>
-<?php $__env->stopSection(); ?>
+	<?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('footer'); ?>
+	<?php $__env->startSection('footer'); ?>
 
-<script src="<?php echo e(asset('js/tableTools.js')); ?>"></script>
+	<script src="<?php echo e(asset('js/tableTools.js')); ?>"></script>
 
-<script>
+	<script>
 
-	
 
-	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive: true,
-			"pageLength": 10,
-			dom: 'T<"clear">lfrtip',
-			tableTools: {
-				"sRowSelect": "single",
-				fnRowSelected: function(nodes) {
-					var ttInstance = TableTools.fnGetInstance("dataTables-example");
-					var row = ttInstance.fnGetSelectedData();
-					$('#client').val(row[0][0]);
-					console.log(row[0][0]);
-				},
 
-				fnRowDeselected: function ( node ) {
-					$('#client').val("");
-				}
-			},"columnDefs":
-			[ { "visible": false, "searchable": false, "targets":[0] }]
+		$(document).ready(function() {
+			$('#dataTables-example').DataTable({
+				"pageLength": 10,
+				dom: 'T<"clear">lfrtip',
+				tableTools: {
+					"sRowSelect": "single",
+					fnRowSelected: function(nodes) {
+						var ttInstance = TableTools.fnGetInstance("dataTables-example");
+						var row = ttInstance.fnGetSelectedData();
+						$('#client').val(row[0][0]);
+						console.log(row[0][0]);
+					},
 
+					fnRowDeselected: function ( node ) {
+						$('#client').val("");
+					}
+				},"columnDefs":
+				[ { "visible": false, "searchable": false, "targets":[0] }]
+
+			});
 		});
-	});
 
-	/*
-
-	$(function () {
-		$("#1").on("click", function () {
-			$("#disabledInput").prop('disabled',false);
-
-			
-		});
-	});
-	*/
-</script>
+	</script>
 
 
-<script type="text/javascript">
-	<?php if(count($errors) > 0): ?>
-	$('#errorModal').modal('show');
+	<script type="text/javascript">
+		<?php if(count($errors) > 0): ?>
+		$('#errorModal').modal('show');
+		<?php endif; ?>
+	</script>
+
+	<?php if(isset($message)): ?>
+	<script type="text/javascript">
+		$('#sucess').modal('show');
+	</script>
 	<?php endif; ?>
-</script>
-
-<?php if(isset($message)): ?>
-<script type="text/javascript">
-	$('#sucess').modal('show');
-</script>
-<?php endif; ?>
 
 
-<script>
+	<script>
 // This example displays an address form, using the autocomplete feature
 // of the Google Places API to help users fill in the information.
 

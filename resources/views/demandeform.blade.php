@@ -72,7 +72,7 @@
 										<div class="col-lg-6">
 											<label>Date de debut</label>
 											<div class="input-group date" >
-												<input type="text" name="dateEvent" id="date-start" class="form-control floating-label" value="{{ old('dateEvent') }}" placeholder="Begin Date Time">
+												<input type="text" name="dateEvent" id="date-start" class="form-control floating-label" value="{{ old('dateEvent') }}" placeholder="Date de debut">
 												<div class="input-group-addon">
 													<span class="glyphicon glyphicon-th"></span>
 												</div>
@@ -81,7 +81,7 @@
 										<div class="col-lg-6">
 											<label>Date de fin</label>
 											<div class="input-group date" >
-												<input type="text" name="dateEndEvent" id="date-end" class="form-control floating-label" value="{{ old('dateEndEvent') }}" placeholder="Begin Date Time">
+												<input type="text" name="dateEndEvent" id="date-end" class="form-control floating-label" value="{{ old('dateEndEvent') }}" placeholder="Date de fin">
 												<div class="input-group-addon">
 													<span class="glyphicon glyphicon-th"></span>
 												</div>
@@ -117,7 +117,6 @@
 													<option value="{{$langue->id}}" selected>{{$langue->content}}</option>
 													@else
 													<option value="{{$langue->id}}">{{$langue->content}}</option>
-
 													@endif
 													@endforeach
 												</select>
@@ -167,61 +166,62 @@
 
 												</tr>
 											</tfoot>
+											<tbody>
+												@foreach($clients as $client)
+												<tr>
+													<td>{{$client->id}}</td>
+													<td>{{$client->nom}}</td>
+													<td>{{$client->prenom}}</td>
+													<td>{{$client->email}}</td>
+												</tr>
+												@endforeach
 
-											@foreach($clients as $client)
-											<tr>
-												<td>{{$client->id}}</td>
-												<td>{{$client->nom}}</td>
-												<td>{{$client->prenom}}</td>
-												<td>{{$client->email}}</td>
-											</tr>
-											@endforeach
-
-										</tbody>
-									</table>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="panel panel-primary">
-							<div class="panel-heading">
-								<h4 class="panel-title">
-									<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-										L'adresse de la demande
-									</a>
-								</h4>
-							</div>
-							<div id="collapse2" class="panel-collapse collapse">
-								<div class="panel-body">
-									<div class="form-group">
-										<label>Adresse</label>
-										<input class="form-control" name="adresse" value="{{ old('adresse') }}" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
-									</div>
-									<div class="form-group">
-										<label>Numero</label>
-										<input class="form-control" name="numero" value="{{ old('numero') }}" id="street_number">
-									</div>
-									<div class="form-group">
-										<label>Route</label>
-										<input class="form-control" name="route" value="{{ old('route') }}" id="route" >
-									</div>
-									<div class="form-group">
-										<label>Code postal</label>
-										<input class="form-control" name="code_postal" value="{{ old('code_postal') }}" id="postal_code"
-										type="text">
-									</div>
-									<div class="form-group">
-										<label>Ville</label>
-										<input class="form-control" name="ville" value="{{ old('ville') }}" id="locality"
-										type="text">
-									</div>
-									<div class="form-group">
-										<label>Pays</label>
-										<input class="form-control" name="pays" value="{{ old('pays') }}" id="country">
-									</div>
-									<div class="form-group">
-										<label>Departement</label>
-										<input class="form-control" name="departement" value="{{ old('departement') }}" id="administrative_area_level_1">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+											L'adresse de la demande
+										</a>
+									</h4>
+								</div>
+								<div id="collapse2" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="form-group">
+											<label>Adresse</label>
+											<input class="form-control" name="adresse" value="{{ old('adresse') }}" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
+										</div>
+										<div class="form-group">
+											<label>Numero</label>
+											<input class="form-control" name="numero" value="{{ old('numero') }}" id="street_number">
+										</div>
+										<div class="form-group">
+											<label>Route</label>
+											<input class="form-control" name="route" value="{{ old('route') }}" id="route" >
+										</div>
+										<div class="form-group">
+											<label>Code postal</label>
+											<input class="form-control" name="code_postal" value="{{ old('code_postal') }}" id="postal_code"
+											type="text">
+										</div>
+										<div class="form-group">
+											<label>Ville</label>
+											<input class="form-control" name="ville" value="{{ old('ville') }}" id="locality"
+											type="text">
+										</div>
+										<div class="form-group">
+											<label>Pays</label>
+											<input class="form-control" name="pays" value="{{ old('pays') }}" id="country">
+										</div>
+										<div class="form-group">
+											<label>Departement</label>
+											<input class="form-control" name="departement" value="{{ old('departement') }}" id="administrative_area_level_1">
+										</div>
 									</div>
 								</div>
 							</div>
@@ -230,128 +230,116 @@
 				</div>
 			</div>
 		</div>
-	</div>
-</form>
+	</form>
 
-<!-- Modal -->
-<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header  modal-header-danger">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
+	<!-- Modal -->
+	<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header  modal-header-danger">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
+				</div>
+				<div class="modal-body">
+					<ul>
+						@foreach($errors->all() as $error)
+						<a href="#" class="list-group-item">
+							<i class="fa fa fa-times fa-fw"></i> {{$error}}
+						</a>
+						@endforeach
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<div class="modal-body">
-				<ul>
-					@foreach($errors->all() as $error)
-					<a href="#" class="list-group-item">
-						<i class="fa fa fa-times fa-fw"></i> {{$error}}
-					</a>
-					@endforeach
-				</ul>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
+			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-content -->
+		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal-dialog -->
-</div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="sucess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
-		<div class="modal-content">
-			<div class="modal-header modal-header-success">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				<h4 class="modal-title" id="myModalLabel">Nouvelle demande ajoutée</h4>
-			</div>
-			<div class="modal-body">
+	<!-- Modal -->
+	<div class="modal fade" id="sucess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header modal-header-success">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Nouvelle demande ajoutée</h4>
+				</div>
+				<div class="modal-body">
 
-				@if(isset($message))
-				<dl>
-					<dt>{{$message}}</dt>
-					<dd>{{$creerLe}}</dd>
-					<dt>Titre :</dt>
-					<dd>{{$titre}}</dd>
-					<dt>Date de l'evenement :</dt>
-					<dd>{{$dateEvent}}</dd>
-					<dt>Demandeur :</dt>
-					<dd>{{$client->nom}} {{$client->prenom}}</dd>
-					<dt><a href="/demande/edit/{{$id}}">Edit</a></dt>
-				</dl>
-				@endif
+					@if(isset($message))
+					<dl>
+						<dt>{{$message}}</dt>
+						<dd>{{$creerLe}}</dd>
+						<dt>Titre :</dt>
+						<dd>{{$titre}}</dd>
+						<dt>Date de l'evenement :</dt>
+						<dd>{{$dateEvent}}</dd>
+						<dt>Demandeur :</dt>
+						<dd>{{$client->nom}} {{$client->prenom}}</dd>
+						<dt><a href="/demande/edit/{{$id}}">Edit</a></dt>
+					</dl>
+					@endif
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			</div>
+			<!-- /.modal-content -->
 		</div>
-		<!-- /.modal-content -->
+		<!-- /.modal-dialog -->
 	</div>
-	<!-- /.modal-dialog -->
-</div>
-@stop
+	@stop
 
-@section('footer')
+	@section('footer')
 
-<script src="{{{ asset('js/tableTools.js')}}}"></script>
+	<script src="{{{ asset('js/tableTools.js')}}}"></script>
 
-<script>
+	<script>
 
-	
 
-	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive: true,
-			"pageLength": 10,
-			dom: 'T<"clear">lfrtip',
-			tableTools: {
-				"sRowSelect": "single",
-				fnRowSelected: function(nodes) {
-					var ttInstance = TableTools.fnGetInstance("dataTables-example");
-					var row = ttInstance.fnGetSelectedData();
-					$('#client').val(row[0][0]);
-					console.log(row[0][0]);
-				},
 
-				fnRowDeselected: function ( node ) {
-					$('#client').val("");
-				}
-			},"columnDefs":
-			[ { "visible": false, "searchable": false, "targets":[0] }]
+		$(document).ready(function() {
+			$('#dataTables-example').DataTable({
+				"pageLength": 10,
+				dom: 'T<"clear">lfrtip',
+				tableTools: {
+					"sRowSelect": "single",
+					fnRowSelected: function(nodes) {
+						var ttInstance = TableTools.fnGetInstance("dataTables-example");
+						var row = ttInstance.fnGetSelectedData();
+						$('#client').val(row[0][0]);
+						console.log(row[0][0]);
+					},
 
+					fnRowDeselected: function ( node ) {
+						$('#client').val("");
+					}
+				},"columnDefs":
+				[ { "visible": false, "searchable": false, "targets":[0] }]
+
+			});
 		});
-	});
 
-	/*
-
-	$(function () {
-		$("#1").on("click", function () {
-			$("#disabledInput").prop('disabled',false);
-
-			
-		});
-	});
-	*/
-</script>
+	</script>
 
 
-<script type="text/javascript">
-	@if (count($errors) > 0)
-	$('#errorModal').modal('show');
+	<script type="text/javascript">
+		@if (count($errors) > 0)
+		$('#errorModal').modal('show');
+		@endif
+	</script>
+
+	@if(isset($message))
+	<script type="text/javascript">
+		$('#sucess').modal('show');
+	</script>
 	@endif
-</script>
-
-@if(isset($message))
-<script type="text/javascript">
-	$('#sucess').modal('show');
-</script>
-@endif
 
 
-<script>
+	<script>
 // This example displays an address form, using the autocomplete feature
 // of the Google Places API to help users fill in the information.
 

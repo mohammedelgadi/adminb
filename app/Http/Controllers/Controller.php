@@ -23,7 +23,6 @@ class Controller extends BaseController
     	);
     }
 
-    public function devis(){
-    	return view('devis');
-    }
+    
+
 }

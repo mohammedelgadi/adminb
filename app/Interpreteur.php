@@ -36,4 +36,14 @@ class Interpreteur extends Model
 	public function adresse(){
 		return $this->belongsTo(Adresse::class);
 	}
+
+	public function langueIni(){
+		return $this->belongsTo(Lang::class,'langue_ini');
+	}
+
+	public function langueDest(){
+		return $this->belongsTo(Lang::class,'langue_dest');
+	}
+
+
 }
