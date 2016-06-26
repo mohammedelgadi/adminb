@@ -10,6 +10,8 @@ use App\Client;
 
 use Input;
 
+use Mailman;
+
 class ClientController extends Controller
 {
 	public function store(Request $request){
@@ -23,7 +25,7 @@ class ClientController extends Controller
 			]);
 
 		$client = new Client($request->all());
-		$langues = preg_split("/\s+/", $request->langues);
+		//$langues = preg_split("/\s+/", $request->langues);
 
 		if(!empty($request->file('image'))){
 			$imageName = $request->nom . '.' . 
@@ -34,11 +36,18 @@ class ClientController extends Controller
 			$client->image =  $imageName;
 		}
 		$client->save();
+
+		Mailman::make('emailNotification')->from('mohelgadi@gmail.com')->to('mohelgadi@gmail.com')->subject('New Account has been added')->setCss('public/css/notification.css')->send();
+
 		return view('clientform')->with(
 			[	
 				'nom' => $request->nom,
 				'prenom' => $request->prenom
 			]
 		);
+	}
+
+	public function add(){
+		return view('clientform');
 	}
 }

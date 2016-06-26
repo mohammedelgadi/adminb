@@ -3,18 +3,14 @@
 
 @section('header')
 
-
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 <link rel="stylesheet" href="{{{ asset('bootstrap-material-datetimepicker.css')}}}" />
 <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="{{{ asset('bootstrap-material-datetimepicker.js')}}}"></script>
-
+<script src="//cdn.ckeditor.com/4.5.8/full/ckeditor.js"></script>
 
 <style type="text/css">
-
 	.modal-header-danger {
 		color:#fff;
 		padding:9px 15px;
@@ -27,7 +23,6 @@
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 	}
-
 	.modal-header-success {
 		color:#fff;
 		padding:9px 15px;
@@ -40,7 +35,7 @@
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 	}
-
+	
 </style>
 
 
@@ -126,7 +121,7 @@
 								</div>
 								<div class="form-group">
 									<label>Contenu de la demande</label>
-									<textarea class="form-control"  rows="10" name="content">{{ old('content') }}</textarea>
+									<textarea class="form-control ckeditor"  rows="10" name="content">{{ old('content') }}</textarea>
 									<p class="help-block">Saisir le contenu de la demande.</p>
 								</div>
 								<input type="hidden" name="client_id" value="" id="client">
@@ -221,6 +216,19 @@
 										<div class="form-group">
 											<label>Departement</label>
 											<input class="form-control" name="departement" value="{{ old('departement') }}" id="administrative_area_level_1">
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-lg-6">
+													<label>Long</label>
+													<input id="long" name="long" class="form-control" value="{{ old('long') }}" readonly></input>
+												</div>
+												<div class="col-lg-6">
+												<label>Lat</label>
+													<input id="lat" name="lat" class="form-control" value="{{ old('lat') }}" readonly></input>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -351,6 +359,7 @@ var componentForm = {
 	administrative_area_level_1: 'short_name',
 	country: 'long_name',
 	postal_code: 'short_name'
+
 };
 
 function initAutocomplete() {
@@ -370,6 +379,11 @@ function fillInAddress() {
   // Get the place details from the autocomplete object.
   var place = autocomplete.getPlace();
 
+  var lat = place.geometry.location.lat();
+  var long = place.geometry.location.lng();
+
+  document.getElementById("lat").value = lat;
+  document.getElementById("long").value = long;
   for (var component in componentForm) {
   	document.getElementById(component).value = '';
   	document.getElementById(component).disabled = false;

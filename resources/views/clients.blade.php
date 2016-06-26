@@ -26,7 +26,6 @@
 								<th>Rendering engine</th>
 								<th>Browser</th>
 								<th>Platform(s)</th>
-							
 							</tr>
 						</thead>
 						<tbody>

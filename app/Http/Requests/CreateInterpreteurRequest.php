@@ -33,6 +33,8 @@ class CreateInterpreteurRequest extends Request
             'langue_dest' => 'required',
             'code_postal' => 'required',
             'ville' => 'required',
+            'long' => 'required',
+            'lat' => 'required',
             'pays'=> 'required'
         ];
     }

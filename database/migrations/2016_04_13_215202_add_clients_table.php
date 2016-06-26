@@ -21,6 +21,9 @@ class AddClientsTable extends Migration
             $table->text('commentaire');
             $table->string('tel_fixe');
             $table->string('image');
+            // compte activé par default
+            $table->integer('activation')->default(1);
+
             $table->timestamps();
         });
     }

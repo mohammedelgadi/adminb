@@ -9,7 +9,7 @@ use Validator;
 class Interpreteur extends Model
 {
 	protected $fillable = [
-	'nom', 'prenom', 'email' , 'tel_portable', 'commentaire' , 'tel_fixe' , 'image' , 'langue_dest', 'langue_ini'
+	'nom', 'prenom', 'email' , 'tel_portable', 'commentaire' , 'tel_fixe' , 'image' , 'prestation' , 'devise'
 	];
 
 	
@@ -18,8 +18,6 @@ class Interpreteur extends Model
 		'nom' => 'required',
 		'prenom' => 'required',
 		'email' => 'required|email|unique:interpreteurs,email',
-		'langue_ini' => 'required',
-		'langue_dest' => 'required',
 		'code_postal' => 'required'
 		];
 
@@ -37,12 +35,8 @@ class Interpreteur extends Model
 		return $this->belongsTo(Adresse::class);
 	}
 
-	public function langueIni(){
-		return $this->belongsTo(Lang::class,'langue_ini');
-	}
-
-	public function langueDest(){
-		return $this->belongsTo(Lang::class,'langue_dest');
+	public function langues(){
+		return $this->hasMany(Langinterpreteur::class,'interpreteurs_id');
 	}
 
 

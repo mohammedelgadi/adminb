@@ -21,6 +21,8 @@ class AddAdressesTable extends Migration
             $table->string('ville');
             $table->string('pays');
             $table->string('departement');
+            $table->string('long');
+            $table->string('lat');
             $table->timestamps();
         });
     }

@@ -28,9 +28,16 @@ class AddDemandesTable extends Migration
 
             $table->integer('adresse_id')->unsigned()->index();
             $table->foreign('adresse_id')->references('id')->on('adresses');
-
+            
             $table->integer('etat_id')->unsigned()->index();
             $table->foreign('etat_id')->references('id')->on('etats');
+            
+
+            // par defaut en cours
+            $table->integer('activation')->default(1);
+
+            // par defaut en cours
+            $table->integer('notification')->default(0);
             
             $table->timestamp('dateEvent');
             $table->timestamp('dateEndEvent');

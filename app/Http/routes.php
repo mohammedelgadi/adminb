@@ -18,24 +18,24 @@ Route::get('/', function () {
 
 Route::get('/calandar', 'Controller@calandar');
 
-Route::get('/devis', 'DevisController@edit');
+Route::get('/devis/update/{id}', 'DevisController@update');
+
+Route::get('/devis/edit/{id}', 'DevisController@edit');
 
 Route::post('/devis/add','DevisController@store');
 
+Route::get('/devis/add/{id}','DevisController@devisAdd');
 
-Route::get('/devis/add/{id}','DevisController@devis');
+Route::get('/devis/remove/{id}','DevisController@remove');
 
-Route::get('/client/add', function () {
-    return view('clientform');
-});
+Route::get('devis','DevisController@devis');
+
+Route::get('/devis/validate/{id}','DevisController@valider');
+
 
 Route::get('/interpreteur/add', 'InterpreteurController@show');
 
 Route::post('/interpreteur/add', 'InterpreteurController@store');
-
-Route::get('/clients', function () {
-    return view('clients');
-});
 
 Route::get('/demande/add', 'DemandeController@add');
 
@@ -45,11 +45,19 @@ Route::post('/demande/add','DemandeController@store' );
 
 Route::post('/demande/update','DemandeController@update');
 
+Route::get('/demande/remove/{id}','DemandeController@remove');
+
 Route::get('/demandes', 'DemandeController@showAll');
 
 Route::post('/demandes', 'DemandeController@getByDate');
 
 Route::post('/client/add','ClientController@store');
+
+Route::get('/client/add', 'ClientController@add');
+
+Route::get('/clients', function () {
+    return view('clients');
+});
 
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
@@ -62,3 +70,9 @@ Route::get('auth/logout', 'Auth\AuthController@logout');
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+
+Route::get('facture/edit/{id}','FactureController@show');
+
+Route::get('/test', function () {
+    return view('test');
+});

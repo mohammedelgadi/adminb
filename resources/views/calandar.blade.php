@@ -58,7 +58,9 @@
         title: '{{$demande->titre}}',
         start: new Date('{{$demande->dateEvent}}'.replace(' ', 'T')),
         end: new Date('{{$demande->dateEndEvent}}'.replace(' ', 'T')),
-        url: '/demande/edit/{{$demande->id}}'
+        url: '/demande/edit/{{$demande->id}}',
+        //color:'#f00',
+
       },
 
       @endforeach

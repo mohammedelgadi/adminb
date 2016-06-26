@@ -18,9 +18,8 @@ class AddServicesTable extends Migration
             $table->string('designation');
             $table->string('qantite');
             $table->string('Unite');
-            $table->string('prix');
-            $table->string('total');
-            
+            $table->float('prix');
+            $table->float('total');
             $table->integer('devie_id')->unsigned()->index();
             $table->foreign('devie_id')->references('id')->on('devies');
             $table->timestamps();

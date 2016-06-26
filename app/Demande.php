@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Demande extends Model
 {
 	protected $fillable = [
-        'titre', 'content', 'client_id' , 'tel_portable', 'commentaire' , 'tel_fixe' , 'dateEvent' , 'dateEndEvent' , 'langue_dest', 'langue_ini', 'adresse_id'
+    'titre', 'content', 'client_id' , 'tel_portable', 'commentaire' , 'tel_fixe' , 'dateEvent' , 'dateEndEvent' , 'langue_dest', 'langue_ini', 'adresse_id'
     ];
 
     public function client(){
@@ -31,7 +31,11 @@ class Demande extends Model
     }
 
     public function devies(){
-        return $this->hasMany(Devie::class);
+        return $this->hasMany(Devie::class)->where('activation', 1);
+    }
+
+    public function factures(){
+        return $this->hasMany(Facture::class)->where('activation', 1);
     }
 
 

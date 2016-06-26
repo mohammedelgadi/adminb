@@ -1,477 +1,213 @@
-@extends('layout')
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+        <script src="//rawgithub.com/stidges/jquery-searchable/master/dist/jquery.searchable-1.0.0.min.js"></script>
+        <script>
 
-@section('header')
+    
+    $(function () {
+    /* BOOTSNIPP FULLSCREEN FIX */
+    if (window.location == window.parent.location) {
+        $('#back-to-bootsnipp').removeClass('hide');
+    }
+    
+    
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    $('#fullscreen').on('click', function(event) {
+        event.preventDefault();
+        window.parent.location = "http://bootsnipp.com/iframe/4l0k2";
+    });
+    $('a[href="#cant-do-all-the-work-for-you"]').on('click', function(event) {
+        event.preventDefault();
+        $('#cant-do-all-the-work-for-you').modal('show');
+    })
+    
+    $('[data-command="toggle-search"]').on('click', function(event) {
+        event.preventDefault();
+        $(this).toggleClass('hide-search');
+        
+        if ($(this).hasClass('hide-search')) {        
+            $('.c-search').closest('.row').slideUp(100);
+        }else{   
+            $('.c-search').closest('.row').slideDown(100);
+        }
+    })
+    
+    $('#contact-list').searchable({
+        searchField: '#contact-list-search',
+        selector: 'li',
+        childSelector: '.col-xs-12',
+        show: function( elem ) {
+            elem.slideDown(100);
+        },
+        hide: function( elem ) {
+            elem.slideUp( 100 );
+        }
+    })
+});
+</script>
 
-<!--
+</head>
+<body>
+  <a href="http://bootsnipp.com/mouse0270/snippets/4l0k2" class="btn btn-danger hide" id="back-to-bootsnipp">Back to Bootsnipp</a>
 
-<link rel='stylesheet' href='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.css' />
--->
-
-<style type="text/css">
-
-  .table-sortable tbody tr {
-    cursor: move;
-  }
-
-
-</style>
-
-@stop
-
-@section('content')
-<br/>
-<form method="POST" action="/devis/add">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="panel-group" id="accordion">
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-                Liste des interpreteurs
-              </a>
-            </h4>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-offset-3 col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-heading c-list">
+            <span class="title">Contacts</span>
+            <ul class="pull-right c-controls">
+              <li><a href="#cant-do-all-the-work-for-you" data-toggle="tooltip" data-placement="top" title="Add Contact"><i class="glyphicon glyphicon-plus"></i></a></li>
+              <li><a href="#" class="hide-search" data-command="toggle-search" data-toggle="tooltip" data-placement="top" title="Toggle Search"><i class="fa fa-ellipsis-v"></i></a></li>
+            </ul>
           </div>
-          <div id="collapse2" class="panel-collapse collapse">
-            <div class="panel-body">
-              <table class="table table-striped table-bordered table-hover" id="dataTables-example" cellspacing="0" width="100%">
-                <thead>
-                  <tr>
-                    <th>id</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>E-MAIL</th>
-                    <th>Langue init</th>
-                    <th>Langue dest</th>
-                  </tr>
-                </thead>
-                <tfoot>
-                  <tr>
-                    <th>id</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
-                    <th>E-MAIL</th>
-                    <th>Langue init</th>
-                    <th>Langue dest</th>
-                  </tr>
-                </tfoot>
-                <tbody>
-                  @foreach($interpreteurs as $interpreteur)
-                  <tr>
-                    <td>{{$interpreteur->id}}</td>
-                    <td>{{$interpreteur->nom}}</td>
-                    <td>{{$interpreteur->prenom}}</td>
-                    <td>{{$interpreteur->email}}</td>
-                    <td>{{$interpreteur->langueIni->content}}</td>
-                    <td>{{$interpreteur->langueDest->content}}</td>
-                  </tr>
-                  @endforeach
 
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="panel panel-primary">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-                Créer un devis
-              </a>
-            </h4>
-          </div>
-          <div id="collapse1" class="table-responsive">
-            <div class="panel-body" class="table-responsive">
-             <div class="row">
-              <div class="col-md-2 col-md-offset-5">
-                <h3>Nouveau Devis</h3>
-              </div> 
-            </div>
-
-            {!! csrf_field() !!}
-            <div class="container">
-              <div class="row clearfix">
-                <div class="col-md-12 table-responsive">
-                  <table class="table table-bordered table-hover table-sortable" id="tab_logic">
-                    <thead>
-                      <tr >
-                        <th class="text-center">
-                          Service
-                        </th>
-                        <th class="text-center" width="30%">
-                          Designation
-                        </th>
-                        <th class="text-center">
-                          Qantité
-                        </th>
-                        <th class="text-center">
-                          Unité
-                        </th>
-                        <th class="text-center">
-                          Prix Unitaire(&euro;)
-                        </th>
-                        <th class="text-center">
-                          Total
-                        </th>
-                        <th class="text-center" style="border-top: 1px solid #ffffff; border-right: 1px solid #ffffff;">
-                        </th>
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th>Total:</th>
-                        <th><div id="total"></div></th>
-                        <th></th>
-                      </tr>
-                    </tfoot>
-                    <tbody>
-                      <tr id='addr0' data-id="0">
-                        <td data-name="service">
-                          <input id="service0" type="text" name='service0'  placeholder='Service' class="form-control"/>
-                        </td>
-                        <td data-name="designation">
-                          <input id="designation0" type="text" name='designation0'  placeholder='designation' class="form-control"/>
-                        </td>
-                        <td data-name="qte">
-                          <input id="qte0" type="number" onkeypress='validate(event)' name='qte0' placeholder='Quantité' class="form-control"/>
-                        </td>
-                        <td data-name="unite">
-                          <input id="unite0" type="text" name='unite0' placeholder="unité" class="form-control"></textarea>
-                        </td>
-                        <td data-name="prixUnitaire">
-                          <input id="prixUnitaire0" type="number" name='prixUnitaire0' onkeypress='validate(event)' step="0.001" placeholder="prix unitaire" class="form-control"></textarea>
-                        </td>
-                        <td data-name="total">
-                         <div id="total0" name="total0" value="0"></div>
-                       </td>
-                       <td data-name="del">
-                        <button id="del0" name="del0" class="btn btn-danger glyphicon glyphicon-remove row-remove"></button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div class="row" style="display: none;">
+            <div class="col-xs-12">
+              <div class="input-group c-search">
+                <input type="text" class="form-control" id="contact-list-search">
+                <span class="input-group-btn">
+                  <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search text-muted"></span></button>
+                </span>
               </div>
             </div>
-            <div class="pull-right">
-              <button id="add_row" type="button" class="btn btn-outline btn-default">Ajouter une ligne</button>
-              <button type="submit" class="btn btn-outline btn-default">Valider</button>
+          </div>
+
+          <ul class="list-group" id="contact-list">
+            <li class="list-group-item">
+              <div class="col-xs-12 col-sm-3">
+                <img src="http://api.randomuser.me/portraits/men/49.jpg" alt="Scott Stevens" class="img-responsive img-circle" />
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <span class="name">Scott Stevens</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5842 Hillcrest Rd"></span>
+                <span class="visible-xs"> <span class="text-muted">5842 Hillcrest Rd</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(870) 288-4149"></span>
+                <span class="visible-xs"> <span class="text-muted">(870) 288-4149</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="scott.stevens@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">scott.stevens@example.com</span><br/></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li class="list-group-item">
+              <div class="col-xs-12 col-sm-3">
+                <img src="http://api.randomuser.me/portraits/men/97.jpg" alt="Seth Frazier" class="img-responsive img-circle" />
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <span class="name">Seth Frazier</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="7396 E North St"></span>
+                <span class="visible-xs"> <span class="text-muted">7396 E North St</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(560) 180-4143"></span>
+                <span class="visible-xs"> <span class="text-muted">(560) 180-4143</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="seth.frazier@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">seth.frazier@example.com</span><br/></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li class="list-group-item">
+              <div class="col-xs-12 col-sm-3">
+                <img src="http://api.randomuser.me/portraits/women/90.jpg" alt="Jean Myers" class="img-responsive img-circle" />
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <span class="name">Jean Myers</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="4949 W Dallas St"></span>
+                <span class="visible-xs"> <span class="text-muted">4949 W Dallas St</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(477) 792-2822"></span>
+                <span class="visible-xs"> <span class="text-muted">(477) 792-2822</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="jean.myers@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">jean.myers@example.com</span><br/></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li class="list-group-item">
+              <div class="col-xs-12 col-sm-3">
+                <img src="http://api.randomuser.me/portraits/men/24.jpg" alt="Todd Shelton" class="img-responsive img-circle" />
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <span class="name">Todd Shelton</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5133 Pecan Acres Ln"></span>
+                <span class="visible-xs"> <span class="text-muted">5133 Pecan Acres Ln</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(522) 991-3367"></span>
+                <span class="visible-xs"> <span class="text-muted">(522) 991-3367</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="todd.shelton@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">todd.shelton@example.com</span><br/></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li class="list-group-item">
+              <div class="col-xs-12 col-sm-3">
+                <img src="http://api.randomuser.me/portraits/women/34.jpg" alt="Rosemary Porter" class="img-responsive img-circle" />
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <span class="name">Rosemary Porter</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5267 Cackson St"></span>
+                <span class="visible-xs"> <span class="text-muted">5267 Cackson St</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(497) 160-9776"></span>
+                <span class="visible-xs"> <span class="text-muted">(497) 160-9776</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="rosemary.porter@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">rosemary.porter@example.com</span><br/></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li class="list-group-item">
+              <div class="col-xs-12 col-sm-3">
+                <img src="http://api.randomuser.me/portraits/women/56.jpg" alt="Debbie Schmidt" class="img-responsive img-circle" />
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <span class="name">Debbie Schmidt</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="3903 W Alexander Rd"></span>
+                <span class="visible-xs"> <span class="text-muted">3903 W Alexander Rd</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(867) 322-1852"></span>
+                <span class="visible-xs"> <span class="text-muted">(867) 322-1852</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="debbie.schmidt@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">debbie.schmidt@example.com</span><br/></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+            <li class="list-group-item">
+              <div class="col-xs-12 col-sm-3">
+                <img src="http://api.randomuser.me/portraits/women/76.jpg" alt="Glenda Patterson" class="img-responsive img-circle" />
+              </div>
+              <div class="col-xs-12 col-sm-9">
+                <span class="name">Glenda Patterson</span><br/>
+                <span class="glyphicon glyphicon-map-marker text-muted c-info" data-toggle="tooltip" title="5020 Poplar Dr"></span>
+                <span class="visible-xs"> <span class="text-muted">5020 Poplar Dr</span><br/></span>
+                <span class="glyphicon glyphicon-earphone text-muted c-info" data-toggle="tooltip" title="(538) 718-7548"></span>
+                <span class="visible-xs"> <span class="text-muted">(538) 718-7548</span><br/></span>
+                <span class="fa fa-comments text-muted c-info" data-toggle="tooltip" title="glenda.patterson@example.com"></span>
+                <span class="visible-xs"> <span class="text-muted">glenda.patterson@example.com</span><br/></span>
+              </div>
+              <div class="clearfix"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <div id="cant-do-all-the-work-for-you" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title" id="mySmallModalLabel">Ooops!!!</h4>
+          </div>
+          <div class="modal-body">
+            <p>I am being lazy and do not want to program an "Add User" section into this snippet... So it looks like you'll have to do that for yourself.</p><br/>
+            <p><strong>Sorry<br/>
+              ~ Mouse0270</strong></p>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- JavaScrip Search Plugin -->
+
     </div>
-  </div>
-  <!-- Modal -->
-  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header  modal-header-danger">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
-        </div>
-        <div class="modal-body">
-          <ul>
-            @foreach($errors->all() as $error)
-            <a href="#" class="list-group-item">
-              <i class="fa fa fa-times fa-fw"></i> {{$error}}
-            </a>
-            @endforeach
-          </ul>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-      <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-  </div>
-  <input type="hidden" name="interpreteur_id" value="" id="client"/>
-  <input type="hidden" name="demande_id" value="{{$demande}}"></input>
-</form>
-
-<!--
-
-<hr>
-
-<div id='calendar'></div>
--->
-
-@stop
-
-@section('footer')
-
-<script src="{{{ asset('js/tableTools.js')}}}"></script>
-
-<script>
-
-
-
-  $(document).ready(function() {
-    var table = $('#dataTables-example').DataTable({
-      "pageLength": 10,
-      dom: 'T<"clear">lfrtip',
-      tableTools: {
-        "sRowSelect": "single",
-        fnRowSelected: function(nodes) {
-          var ttInstance = TableTools.fnGetInstance("dataTables-example");
-          var row = ttInstance.fnGetSelectedData();
-          $('#client').val(row[0][0]);
-          console.log(row[0][0]);
-        },
-
-        fnRowDeselected: function ( node ) {
-          $('#client').val("");
-        }
-      },"columnDefs":
-      [ { "visible": false, "searchable": false, "targets":0 }]
-
-    });
-
-    // Setup - add a text input to each footer cell
-    $('#dataTables-example tfoot th').each( function () {
-      var title = $(this).text();
-      $(this).html( '<input type="text" placeholder="'+title+'" />' );
-    } );
-
-
-
-    // Apply the search
-    table.columns().every( function () {
-      var that = this;
-
-      $( 'input', this.footer() ).on( 'keyup change', function () {
-        if ( that.search() !== this.value ) {
-          that
-          .search( this.value )
-          .draw();
-        }
-      } );
-    } );
-  });
-
-</script>
-
-
-<script type="text/javascript">
-
-  function calculer(newid)   // declaration de la fonction avec un argument
-  {
-    var AncienneVal  = $("#total"+newid).val();
-    console.log(AncienneVal);
-    var quantite = $("#qte"+newid).val();
-    var prixUnitaire = $("#prixUnitaire"+newid).val();
-    var valeur = quantite*prixUnitaire;
-    $("#total"+newid).html("<strong>"+quantite*prixUnitaire+"&euro;</strong>");
-    $("#total"+newid).val(valeur);
-    var total = +$("#total").val() - +AncienneVal;
-    var somme = +valeur + +total;
-    $("#total").html("<strong>"+somme+"&euro;</strong>");
-    $("#total").val(somme);
-  }
-
-  
-
-  $(document).ready(function() {
-    $("#add_row").on("click", function() {
-        // Dynamic Rows Code
-        
-        // Get max row id and set new id
-        var newid = 0;
-        $.each($("#tab_logic tr"), function() {
-          if (parseInt($(this).data("id")) > newid) {
-            newid = parseInt($(this).data("id"));
-          }
-        });
-        newid++;
-        
-        var tr = $("<tr></tr>", {
-          id: "addr"+newid,
-          "data-id": newid
-        });
-        
-        // loop through each td and create new elements with name of newid
-        $.each($("#tab_logic tbody tr:nth(0) td"), function() {
-          var cur_td = $(this);
-
-          var children = cur_td.children();
-
-            // add new td and element if it has a nane
-            if ($(this).data("name") != undefined) {
-              var td = $("<td></td>", {
-                "data-name": $(cur_td).data("name")
-              });
-
-
-              var c = $(cur_td).find($(children[0]).prop('tagName')).clone().val("").text("");
-              c.attr("id", $(cur_td).data("name") + newid);
-              c.attr("name", $(cur_td).data("name") + newid);
-              c.prop('disabled', false);
-              c.val("");
-              c.appendTo($(td));
-              td.appendTo($(tr));
-            } else {
-              var td = $("<td></td>", {
-                'text': $('#tab_logic tr').length
-              }).appendTo($(tr));
-            }
-
-
-          });
-        
-        // add delete button and td
-        /*
-        $("<td></td>").append(
-            $("<button class='btn btn-danger glyphicon glyphicon-remove row-remove'></button>")
-                .click(function() {
-                    $(this).closest("tr").remove();
-                })
-        ).appendTo($(tr));
-        */
-        
-        // add the new row
-        $(tr).appendTo($('#tab_logic'));
-        $('#qte'+newid+",#prixUnitaire"+newid).on('input', function() {
-         calculer(newid);
-       });
-        
-        $(tr).find("td button.row-remove").on("click", function() {
-          $("#qte"+newid).val(0);
-          $("#prixUnitaire"+newid).val(0);
-          calculer(newid);
-          $(this).closest("tr").remove();
-        });
-      });
-
-
-
-    // Sortable Code
-    var fixHelperModified = function(e, tr) {
-      var $originals = tr.children();
-      var $helper = tr.clone();
-
-      $helper.children().each(function(index) {
-        $(this).width($originals.eq(index).width())
-      });
-
-      return $helper;
-    };
-
-
-
-    //$("#add_row").trigger("click");
-  });
-
-
-  function validate(evt) {
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode( key );
-    var regex = /[0-9]|\./;
-    if( !regex.test(key)  && theEvent.keyCode != 8) {
-      theEvent.returnValue = false;
-      if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-  }
-
-  $('#qte0,#prixUnitaire0').on('input', function() {
-   calculer(0);
- });
-</script>
-
-<!--
-
-<script src='http://fullcalendar.io/js/fullcalendar-2.2.3/lib/moment.min.js'></script>
-<script src='http://fullcalendar.io/js/fullcalendar-2.2.3/fullcalendar.min.js'></script>
-
-
-
-<script type="text/javascript">
-
-  $(document).ready(function() {
-    // page is now ready, initialize the calendar...
-    // options and github  - http://fullcalendar.io/
-
-    var date = new Date();
-    var d = date.getDate();
-    var m = date.getMonth();
-    var y = date.getFullYear();
-
-    $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,basicWeek,basicDay'
-      },
-      aspectRatio: 2,
-      eventLimit: true, // allow "more" link when too many events
-      timeFormat: 'HH:mm',
-      
-      events: [
-      {
-        title: 'All Day Event',
-        start: new Date(y, m, 1)
-      },
-      {
-        title: 'Long Event',
-        start: new Date(y, m, d-5),
-        end: new Date(y, m, d-2)
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: new Date(y, m, d-3, 16, 0),
-        allDay: false
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: new Date(y, m, d+4, 16, 0),
-        allDay: false
-      },
-      {
-        title: 'Meeting',
-        start: new Date(y, m, d, 10, 30),
-        allDay: false
-      },
-      {
-        title: 'Lunch',
-        start: new Date(y, m, d, 12, 0),
-        end: new Date(y, m, d, 14, 0),
-        allDay: false
-      },
-      {
-        title: 'Travail',
-        start: new Date(y, m, d, 14, 0),
-        end: new Date(y, m, d, 18, 0),
-        allDay: false
-      },
-      {
-        title: 'Birthday Party',
-        start: new Date(y, m, d+1, 19, 0),
-        end: new Date(y, m, d+1, 22, 30),
-        allDay: false
-      },
-      {
-        title: 'Click for Google',
-        start: new Date(y, m, 28),
-        end: new Date(y, m, 29),
-        url: 'http://google.com/'
-      }
-      ],
-      editable: true,
-  });
-
-});
-
-
-</script>
-
--->
-
-@stop
+  </body>
+  </html>

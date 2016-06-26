@@ -12,17 +12,22 @@ use App\Demande;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
+	use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
-    public function calandar(){
-    	$demandes = Demande::all();
-    	return view('calandar',
-    		[
-    			'demandes' => $demandes
-    		]
-    	);
-    }
+	public function __construct()
+	{
+		$this->middleware('auth');
+	}
 
-    
+	public function calandar(){
+		$demandes = Demande::all();
+		return view('calandar',
+			[
+			'demandes' => $demandes
+			]
+			);
+	}
+
+	
 
 }

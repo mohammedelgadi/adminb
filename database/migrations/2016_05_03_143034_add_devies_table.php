@@ -18,6 +18,11 @@ class AddDeviesTable extends Migration
             $table->foreign('demande_id')->references('id')->on('demandes');
             $table->integer('interpreteur_id')->unsigned()->index();
             $table->foreign('interpreteur_id')->references('id')->on('interpreteurs');
+            $table->float('total');
+            // par defaut en cours
+            $table->integer('activation')->default(1);
+            // mail sended
+            $table->integer('reminder')->default(1);
             $table->timestamps();
         });
     }

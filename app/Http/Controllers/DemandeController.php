@@ -34,9 +34,9 @@ class DemandeController extends Controller
     $clients = Client::all();
     $demande = new Demande($request->all());
     $adresse = new Adresse($request->all());
-    $demande->etat()->associate(Etat::find(1));
     $langues = Lang::all();
     $adresse->save();
+    $demande->etat()->associate(Etat::find(1));
     $demande->adresse_id = $adresse->id;
     $demande->save();
     return view('demandeform')->with(
@@ -66,8 +66,6 @@ class DemandeController extends Controller
         'etats' => $etats
         ]);
     }
-
-    
   }
 
   public function add(){
@@ -82,7 +80,7 @@ class DemandeController extends Controller
 
   public function showAll(){
     $langues = Lang::all();
-    $demandes = Demande::all();
+    $demandes = Demande::where('activation',1)->get();
     return view('demandes', 
       [
       'langues' => $langues,
@@ -109,6 +107,8 @@ class DemandeController extends Controller
         $demande->content = $request->content;
         $demande->dateEvent = $request->dateEvent;
         $demande->dateEndEvent = $request->dateEndEvent;
+        $demande->etat()->associate(Etat::find(4));
+        $demande->activation=0;
         $demande->save();
       }
 
@@ -174,6 +174,14 @@ class DemandeController extends Controller
     ]);
 
   
+}
+
+public function remove($id){
+  $demande = Demande::find($id);
+  $demande->etat()->associate(Etat::find(4));
+  $demande->activation = 0;
+  $demande->save();
+  return redirect()->back();
 }
 
 }

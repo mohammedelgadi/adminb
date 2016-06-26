@@ -18,19 +18,17 @@ class AddInterpreteursTable extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('email')->unique();
+            $table->string('devise');
+            $table->string('prestation');
             $table->string('tel_portable');
             $table->text('commentaire');
             $table->string('tel_fixe');
             $table->string('image');
-            
             $table->integer('adresse_id')->unsigned()->index();
             $table->foreign('adresse_id')->references('id')->on('adresses');
+            // compte activé par default
+            $table->integer('activation')->default(1);
 
-            $table->integer('langue_ini')->unsigned()->index();
-            $table->foreign('langue_ini')->references('id')->on('langs');
-            
-            $table->integer('langue_dest')->unsigned()->index();
-            $table->foreign('langue_dest')->references('id')->on('langs');
 
             $table->timestamps();
         });

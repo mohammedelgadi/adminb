@@ -34,6 +34,8 @@ class CreateDemandeRequest extends Request
         'langue_ini' => 'required',
         'langue_dest' => 'required',
         'code_postal' => 'required',
+        'lat' => 'required',
+        'long' => 'required',
         'ville' => 'required',
         'pays'=> 'required',
         'adresse'=> 'required'

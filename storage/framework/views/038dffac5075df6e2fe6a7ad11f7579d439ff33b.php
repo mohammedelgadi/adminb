@@ -44,10 +44,6 @@
 					<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
 				</div>
 				<div class="form-group">
-					<label>tel fixe</label>
-					<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
-				</div>
-				<div class="form-group">
 					<label>Commentaire</label>
 					<textarea class="form-control" name="commentaire" rows="3"><?php echo e(old('commentaire')); ?></textarea>
 				</div>

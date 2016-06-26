@@ -64,6 +64,22 @@
 							<input type="file" name="image">
 						</div>
 						<div class="form-group">
+							<div class="row">
+								<div class="col-lg-6">
+									<label>Prix préstation</label>
+									<input class="form-control" value="<?php echo e(old('prestation')); ?>"  name="prestation" placeholder="Enter text">
+								</div>
+								<div class="col-lg-6">
+									<label>Devise</label>
+									<select name="devise" class="form-control">
+										<option value="Dollar">Dollar</option>
+										<option value="Euro">Euro</option>
+										<option value="DH">DH</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
 							<label>tel portable</label>
 							<input class="form-control" value="<?php echo e(old('tel_portable')); ?>"  name="tel_portable" placeholder="telephone portable">
 						</div>
@@ -71,115 +87,273 @@
 							<label>tel fixe</label>
 							<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
 						</div>
-						<div class="form-group">
-							<label>tel fixe</label>
-							<input class="form-control"  value="<?php echo e(old('tel_fixe')); ?>" name="tel_fixe" placeholder="telephone fixe">
-						</div>
-						<!--
-						<div class="form-group">
-							<label>Langues</label>
-							<div name="mamot" id="suggestOnClick"></div>
-
-						</div>
-						-->
-						<div class="form-group">
-							<label>Commentaire</label>
-							<textarea class="form-control" name="commentaire" rows="3"><?php echo e(old('commentaire')); ?></textarea>
-						</div>
-
-						<!--<input id="hiddenfield" name="langues" hidden="true"></input>-->
-
-						<button id="send" type="submit" class="btn btn-outline btn-primary">Ajouter</button>
-						<button type="reset" class="btn btn-outline btn-primary">Supprimer</button>
-
-
-						<hr>
+					<div class="form-group">
+						<label>Commentaire</label>
+						<textarea class="form-control ckeditor" name="commentaire" rows="3"><?php echo e(old('commentaire')); ?></textarea>
 					</div>
+					<!--<input id="hiddenfield" name="langues" hidden="true"></input>-->
+					<button id="send" type="submit" class="btn btn-outline btn-primary">Ajouter</button>
+					<button type="reset" class="btn btn-outline btn-primary">Supprimer</button>
+					<hr>
 				</div>
 			</div>
-			<div class="col-lg-6">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<div>
-							<div class="form-group">
-								<div class="row">
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Langue initiale 1: </label>
-											<select class="form-control" name="langue_ini">
-												<option value=""></option>
-												<?php foreach($langues as $langue): ?>
-												<?php if($langue->id == old('langue_ini')): ?>
-												<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
-												<?php else: ?>
-												<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
-
-												<?php endif; ?>
-												<?php endforeach; ?>
-											</select>
-										</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-lg-5">
+									<div class="form-group">
+										<label>Langue initiale 1: </label>
+										<select class="form-control" name="langue_ini">
+											<option value=""></option>
+											<?php foreach($langues as $langue): ?>
+											<?php if($langue->id == old('langue_ini')): ?>
+											<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+											<?php else: ?>
+											<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+											<?php endif; ?>
+											<?php endforeach; ?>
+										</select>
 									</div>
-									<div class="col-lg-6">
-										<div class="form-group">
-											<label>Langue destination 1: </label>
-											<select class="form-control" name="langue_dest" >
-												<option value=""></option>
-												<?php foreach($langues as $langue): ?>
-												<?php if($langue->id == old('langue_dest')): ?>
-												<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
-												<?php else: ?>
-												<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
-
-												<?php endif; ?>
-												<?php endforeach; ?>
-											</select>
-										</div>
+								</div>
+								<div class="col-lg-5">
+									<div class="form-group">
+										<label>Langue destination 1: </label>
+										<select class="form-control" name="langue_dest" >
+											<option value=""></option>
+											<?php foreach($langues as $langue): ?>
+											<?php if($langue->id == old('langue_dest')): ?>
+											<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+											<?php else: ?>
+											<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+											<?php endif; ?>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="form-group">
+										<label>&nbsp;</label>
+										<a href="#langue2" class="form-control toggle btn btn-primary">+</a>
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<label>Adresse</label>
-								<input class="form-control" name="adresse" value="<?php echo e(old('adresse')); ?>" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
+							<div id="langue2" class="row hidden" disabled>
+								<div class="col-lg-5">
+									<div class="form-group">
+										<label>Langue initiale 2: </label>
+										<select class="form-control" name="langue_ini_1">
+											<option value=""></option>
+											<?php foreach($langues as $langue): ?>
+											<?php if($langue->id == old('langue_ini_1')): ?>
+											<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+											<?php else: ?>
+											<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+											<?php endif; ?>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-5">
+									<div class="form-group">
+										<label>Langue destination 2: </label>
+										<select class="form-control" name="langue_dest_1" >
+											<option value=""></option>
+											<?php foreach($langues as $langue): ?>
+											<?php if($langue->id == old('langue_dest_1')): ?>
+											<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+											<?php else: ?>
+											<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+											<?php endif; ?>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="form-group">
+										<label>&nbsp;</label>
+										<a href="#langue3" class="form-control toggle btn btn-primary">+</a>
+									</div>
+								</div>
 							</div>
+							<div id="langue3" class="row hidden" disabled>
+								<div class="col-lg-5">
+									<div class="form-group">
+										<label>Langue initiale 3: </label>
+										<select class="form-control" name="langue_ini_2">
+											<option value=""></option>
+											<?php foreach($langues as $langue): ?>
+											<?php if($langue->id == old('langue_ini_2')): ?>
+											<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+											<?php else: ?>
+											<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
 
-							<div class="form-group">
-								<label>Numero</label>
-								<input class="form-control" name="numero" value="<?php echo e(old('numero')); ?>" id="street_number">
+											<?php endif; ?>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-5">
+									<div class="form-group">
+										<label>Langue destination 3: </label>
+										<select class="form-control" name="langue_dest_2" >
+											<option value=""></option>
+											<?php foreach($langues as $langue): ?>
+											<?php if($langue->id == old('langue_dest_2')): ?>
+											<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+											<?php else: ?>
+											<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
+
+											<?php endif; ?>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</div>
+								<div class="col-lg-2">
+									<div class="form-group">
+										<label>&nbsp;</label>
+										<a href="#langue4" class="form-control toggle btn btn-primary">+</a>
+									</div>
+								</div>
 							</div>
+						</div>
+						<div id="langue4" class="row hidden" disabled>
+							<div class="col-lg-5">
+								<div class="form-group">
+									<label>Langue initiale 4: </label>
+									<select class="form-control" name="langue_ini_3">
+										<option value=""></option>
+										<?php foreach($langues as $langue): ?>
+										<?php if($langue->id == old('langue_ini_2')): ?>
+										<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+										<?php else: ?>
+										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
 
-							<div class="form-group">
-								<label>Route</label>
-								<input class="form-control" name="route" value="<?php echo e(old('route')); ?>" id="route">
+										<?php endif; ?>
+										<?php endforeach; ?>
+									</select>
+								</div>
 							</div>
+							<div class="col-lg-5">
+								<div class="form-group">
+									<label>Langue destination 4: </label>
+									<select class="form-control" name="langue_dest_3" >
+										<option value=""></option>
+										<?php foreach($langues as $langue): ?>
+										<?php if($langue->id == old('langue_dest_2')): ?>
+										<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+										<?php else: ?>
+										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
 
-							<div class="form-group">
-								<label>Code postal</label>
-								<input class="form-control" name="code_postal" value="<?php echo e(old('code_postal')); ?>" id="postal_code" type="text">
+										<?php endif; ?>
+										<?php endforeach; ?>
+									</select>
+								</div>
 							</div>
-
-							<div class="form-group">
-								<label>Ville</label>
-								<input class="form-control" name="ville" value="<?php echo e(old('ville')); ?>" id="locality"
-								 type="text">
+							<div class="col-lg-2">
+								<div class="form-group">
+									<label>&nbsp;</label>
+									<a href="#langue5" class="form-control toggle btn btn-primary">+</a>
+								</div>
 							</div>
+						</div>
+						<div id="langue5" class="row hidden" disabled>
+							<div class="col-lg-5">
+								<div class="form-group">
+									<label>Langue initiale 5: </label>
+									<select class="form-control" name="langue_ini_4">
+										<option value=""></option>
+										<?php foreach($langues as $langue): ?>
+										<?php if($langue->id == old('langue_ini_2')): ?>
+										<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+										<?php else: ?>
+										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
 
-							<div class="form-group">
-								<label>Pays</label>
-								<input class="form-control" name="pays" value="<?php echo e(old('pays')); ?>" id="country" >
+										<?php endif; ?>
+										<?php endforeach; ?>
+									</select>
+								</div>
 							</div>
+							<div class="col-lg-5">
+								<div class="form-group">
+									<label>Langue destination 5: </label>
+									<select class="form-control" name="langue_dest_4" >
+										<option value=""></option>
+										<?php foreach($langues as $langue): ?>
+										<?php if($langue->id == old('langue_dest_2')): ?>
+										<option value="<?php echo e($langue->id); ?>" selected><?php echo e($langue->content); ?></option>
+										<?php else: ?>
+										<option value="<?php echo e($langue->id); ?>"><?php echo e($langue->content); ?></option>
 
-							<div class="form-group">
-								<label>Departement</label>
-								<input class="form-control" name="departement" value="<?php echo e(old('departement')); ?>" id="administrative_area_level_1">
+										<?php endif; ?>
+										<?php endforeach; ?>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label>Adresse</label>
+						<input class="form-control" name="adresse" value="<?php echo e(old('adresse')); ?>" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()"  type="text">
+					</div>
+
+					<div class="form-group">
+						<label>Numero</label>
+						<input class="form-control" name="numero" value="<?php echo e(old('numero')); ?>" id="street_number">
+					</div>
+
+					<div class="form-group">
+						<label>Route</label>
+						<input class="form-control" name="route" value="<?php echo e(old('route')); ?>" id="route">
+					</div>
+
+					<div class="form-group">
+						<label>Code postal</label>
+						<input class="form-control" name="code_postal" value="<?php echo e(old('code_postal')); ?>" id="postal_code" type="text">
+					</div>
+
+					<div class="form-group">
+						<label>Ville</label>
+						<input class="form-control" name="ville" value="<?php echo e(old('ville')); ?>" id="locality"
+						type="text">
+					</div>
+
+					<div class="form-group">
+						<label>Pays</label>
+						<input class="form-control" name="pays" value="<?php echo e(old('pays')); ?>" id="country" >
+					</div>
+
+					<div class="form-group">
+						<label>Departement</label>
+						<input class="form-control" name="departement" value="<?php echo e(old('departement')); ?>" id="administrative_area_level_1">
+					</div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-lg-6">
+								<label>Long</label>
+								<input id="long" name="long" class="form-control" value="<?php echo e(old('long')); ?>" readonly></input>
+							</div>
+							<div class="col-lg-6">
+								<label>Lat</label>
+								<input id="lat" name="lat" class="form-control" value="<?php echo e(old('lat')); ?>" readonly></input>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- /.row (nested) -->
 	</div>
-	<!-- /.panel-body -->
+</div>
+<!-- /.row (nested) -->
+</div>
+<!-- /.panel-body -->
 </form>
 
 
@@ -247,13 +421,6 @@
 </div>
 <?php endif; ?>
 
-
-
-
-
-
-
-
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('footer'); ?>
@@ -269,33 +436,20 @@
 	$('#sucess').modal('show');
 </script>
 <?php endif; ?>
-<!--
-<script src='<?php echo e(asset("bootstrap-tags.js")); ?>'></script>
-<script type="text/javascript">
-	$(function(){
-		$("#suggestOnClick").tags({
-			restrictTo: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
-			suggestions: ["alpha", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel", "india"],
-			promptText: "Click here to add new language",
-			suggestOnClick: true
-		});
-	});
 
-	/*
-
+<script>
+	
 	$(function () {
-		$("#send").on("click", function () {
-			$("#hiddenfield").val($("#suggestOnClick").text());
 
-			alert($("#hiddenfield").val());
-
-			$("form#formID").submit();
+		$('.toggle').click(function (event) {
+			event.preventDefault();
+			var target = $(this).attr('href');
+			$(target).toggleClass('hidden show');
 		});
+
 	});
-	*/
 
 </script>
--->
 
 <script>
 // This example displays an address form, using the autocomplete feature
@@ -327,6 +481,11 @@ function initAutocomplete() {
 function fillInAddress() {
   // Get the place details from the autocomplete object.
   var place = autocomplete.getPlace();
+  var lat = place.geometry.location.lat();
+  var long = place.geometry.location.lng();
+
+  document.getElementById("lat").value = lat;
+  document.getElementById("long").value = long;
 
   for (var component in componentForm) {
   	//document.getElementById(component).value = '';

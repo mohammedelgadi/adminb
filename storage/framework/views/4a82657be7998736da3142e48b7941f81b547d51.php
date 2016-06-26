@@ -1,31 +1,23 @@
 <?php $__env->startSection('header'); ?>
-
-<!--
-<link rel="stylesheet" type="text/css" href="<?php echo e(asset('jquery.datetimepicker.css')); ?>"/>
--->
-
-
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 <link rel="stylesheet" href="<?php echo e(asset('bootstrap-material-datetimepicker.css')); ?>" />
-
 <script type="text/javascript" src="http://momentjs.com/downloads/moment-with-locales.min.js"></script>
 <script type="text/javascript" src="<?php echo e(asset('bootstrap-material-datetimepicker.js')); ?>"></script>
+<script type="text/javascript" src="<?php echo e(asset('js/jquery.popconfirm.js')); ?>"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.0.2/css/responsive.bootstrap.min.css">
+<script src="//cdn.ckeditor.com/4.5.8/full/ckeditor.js"></script>
 
 
-
-<!--
-<script>
-	$(function() {
-		$( "#datepicker" ).datepicker();
-	});
-</script>
--->
-
-
-
-
+<style type="text/css">
+	.modal-dialog {
+		width: 98%;
+		height: 92%;
+		padding: 0;
+	}
+</style>
 
 <?php $__env->stopSection(); ?>
 
@@ -55,7 +47,6 @@
 								<option value="<?php echo e($etat->id); ?>" selected><?php echo e($etat->libelle); ?></option>
 								<?php else: ?>
 								<option value="<?php echo e($etat->id); ?>"><?php echo e($etat->libelle); ?></option>
-
 								<?php endif; ?>
 								<?php endforeach; ?>
 							</select>
@@ -83,12 +74,10 @@
 									</div>
 								</div>
 							</div>
-							
 						</div>
-
 						<div class="form-group">
 							<label>Contenu de la demande</label>
-							<textarea class="form-control" rows="15" name="content"><?php echo e($demande->content); ?></textarea>
+							<textarea class="form-control ckeditor" rows="15" name="content"><?php echo e($demande->content); ?></textarea>
 							<p class="help-block">Saisir le contenu de la demande.</p>
 						</div>
 
@@ -103,7 +92,12 @@
 			</div>
 			<!-- /.col-lg-6 (nested) -->
 			<div class="col-lg-7">
-				<div class="panel panel-default">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							Le demandeur
+						</h4>
+					</div>
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-lg-2">
@@ -164,38 +158,21 @@
 						<div class="panel-heading">
 							<h4 class="panel-title">
 								<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
-									Les devis en cours
+									Les devis en cours (4 premiers)
 								</a>
 							</h4>
 						</div>
 						<div id="collapse1" class="panel-collapse collapse in">
 							<div class="panel-body">
 								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> New Comment
-										<span class="pull-right text-muted small"><em>500 euros</em>
+									<?php foreach(array_slice($demande->devies->all(),0,4) as $devis): ?>
+									<a href="/devis/edit/<?php echo e($devis->id); ?>" class="list-group-item">
+										<i class="fa fa fa-money fa-fw"></i> Interpreteur : <strong><?php echo e($devis->interpreteur->nom); ?> <?php echo e($devis->interpreteur->prenom); ?></strong><br/>
+										Crée le : <strong><?php echo e(date('D d M Y h:m:s',strtotime($devis->demande->created_at))); ?></strong>
+										<span class="pull-right text-muted small"><em>Prix : <strong><?php echo e($devis->total); ?> &euro;</strong></em>
 										</span>
 									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> 3 New Followers
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa fa-money fa-fw"></i> Message Sent
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> New Task
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> Server Rebooted
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
+									<?php endforeach; ?>
 								</div>
 								<!-- /.list-group -->
 								
@@ -213,130 +190,165 @@
 										<div class="modal-content">
 											<div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+												<h4 class="modal-title" id="myModalLabel">Liste des devis en cours</h4>
 											</div>
 											<div class="modal-body">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary">Save changes</button>
-											</div>
+												<table class="table nowrap" cellspacing="0" cellspacing="0" id="example">	<thead>
+													<tr>
+														<th>Nom de l'interpreteur</th>
+														<th>Prenom de l'interpreteur</th>
+														<th>Adresse de l'interpreteur</th>
+														<th>Prix proposé</th>
+														<th>Date creation du devis</th>
+														<th>Date modification du devis</th>
+														<th>Edit/Delete</th>
+														<th>Valider</th>
+													</tr>
+												</thead>
+												<tfoot>
+													<tr>
+														<th>Nom de l'interpreteur</th>
+														<th>Prenom de l'interpreteur</th>
+														<th>Adresse de l'interpreteur</th>
+														<th>Prix proposé</th>
+														<th>Date creation du devis</th>
+														<th>Date modification du devis</th>
+														<th>Edit/Delete</th>
+														<th>Valider</th>
+													</tr>
+												</tfoot>
+												<tbody>
+													<?php foreach($demande->devies as $devi): ?>
+													<tr>
+														<td><?php echo e($devi->interpreteur->nom); ?></td>
+														<td><?php echo e($devi->interpreteur->prenom); ?></td>
+														<td><?php echo e($devi->interpreteur->adresse->adresse); ?></td>
+														<td><?php echo e($devi->total); ?></td>
+														<td><?php echo e($devi->created_at); ?></td>
+														<td><?php echo e($devi->updated_at); ?></td>
+														<td><a href="/devis/edit/<?php echo e($devi->id); ?>" class="editor_edit"><span class="glyphicon glyphicon-pencil"></span></a> / <a id="delete<?php echo e($devi->id); ?>" href="/devis/remove/<?php echo e($devi->id); ?>" class="editor_remove"><span class="glyphicon glyphicon-trash" ></span></a></td>
+														<td><a id="validate<?php echo e($devi->id); ?>" href="/devis/validate/<?php echo e($devi->id); ?>" class="editor_edit"><span class="glyphicon glyphicon-ok"></span></a></td>
+													</tr>
+													<script type="text/javascript">
+														$(document).ready(function() {
+															$("#delete<?php echo e($devi->id); ?>").popConfirm({
+																title: "Message de confirmation ?",
+																content: "Voulez vous supprimer l'objet !",
+																placement: "bottom"
+															});
+
+															$("#validate<?php echo e($devi->id); ?>").popConfirm({
+																title: "Message de confirmation ?",
+																content: "Voulez vous Valider le devis en cours !",
+																placement: "bottom"
+															});
+														});
+													</script>
+													<?php endforeach; ?>
+												</tbody>
+											</table>
 										</div>
-										<!-- /.modal-content -->
-									</div>
-									<!-- /.modal-dialog -->
-								</div>
-								<!-- /.modal -->
-							</div>
-						</div>
-					</div>
-					<div class="panel panel-primary">
-						<div class="panel-heading">
-							<h4 class="panel-title">
-								<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
-									Les factures en cours
-								</a>
-							</h4>
-						</div>
-						<div id="collapse2" class="panel-collapse collapse">
-							<div class="panel-body">
-								<div class="list-group">
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> New Comment
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> 3 New Followers
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa fa-money fa-fw"></i> Message Sent
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> New Task
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-									<a href="#" class="list-group-item">
-										<i class="fa fa fa-money fa-fw"></i> Server Rebooted
-										<span class="pull-right text-muted small"><em>500 euros</em>
-										</span>
-									</a>
-								</div>
-								<!-- /.list-group -->
-								
-								<div class="row">
-									<div class="col-lg-6">
-										<a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#facturesModal">Afficher toutes les factures</a>
-									</div>
-									<div class="col-lg-6">
-										<a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#facturesModal">Afficher toutes les factures</a>
-									</div>
-								</div>
-
-								<!-- Modal -->
-								<div class="modal fade" id="facturesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog modal-lg">
-										<div class="modal-content">
-											<div class="modal-header">
-												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-												<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-											</div>
-											<div class="modal-body">
-												Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-											</div>
-											<div class="modal-footer">
-												<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-												<button type="button" class="btn btn-primary">Save changes</button>
-											</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-primary" data-dismiss="modal">close</button>
 										</div>
-										<!-- /.modal-content -->
 									</div>
-									<!-- /.modal-dialog -->
+									<!-- /.modal-content -->
 								</div>
-								<!-- /.modal -->
-
+								<!-- /.modal-dialog -->
 							</div>
+							<!-- /.modal -->
 						</div>
-					</div>
-				</div> 
-
-			</div>
-		</div>
-		<!-- /.panel-body -->
-
-		<!-- Modal -->
-		<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header  modal-header-danger">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
-					</div>
-					<div class="modal-body">
-						<ul>
-							<?php foreach($errors->all() as $error): ?>
-							<a href="#" class="list-group-item">
-								<i class="fa fa fa-times fa-fw"></i> <?php echo e($error); ?>
-
-							</a>
-							<?php endforeach; ?>
-						</ul>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					</div>
 				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+								Les factures en cours
+							</a>
+						</h4>
+					</div>
+					<div id="collapse2" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="list-group">
+								<?php foreach($demande->factures as $facture): ?>
+								<a href="/facture/edit/<?php echo e($facture->devis->id); ?>" class="list-group-item">
+									<i class="fa fa fa-money fa-fw"></i> Interpreteur : <strong><?php echo e($facture->devis->interpreteur->nom); ?> <?php echo e($facture->devis->interpreteur->prenom); ?></strong><br/>
+									Crée le : <strong><?php echo e(date('D d M Y h:m:s',strtotime($facture->created_at))); ?></strong>
+									<span class="pull-right text-muted small"><em>Prix : <strong><?php echo e($facture->devis->total); ?> &euro;</strong></em>
+									</span>
+								</a>
+								<?php endforeach; ?>
+							</div>
+							<!-- /.list-group -->
+
+							<div class="row">
+								<div class="col-lg-6">
+									<a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#facturesModal">Afficher toutes les factures</a>
+								</div>
+								<div class="col-lg-6">
+									<a href="#" class="btn btn-default btn-block" data-toggle="modal" data-target="#facturesModal">Afficher toutes les factures</a>
+								</div>
+							</div>
+
+							<!-- Modal -->
+							<div class="modal fade" id="facturesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+											<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+										</div>
+										<div class="modal-body">
+											Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-primary">Save changes</button>
+										</div>
+									</div>
+									<!-- /.modal-content -->
+								</div>
+								<!-- /.modal-dialog -->
+							</div>
+							<!-- /.modal -->
+
+						</div>
+					</div>
+				</div>
+			</div> 
+
 		</div>
 	</div>
+	<!-- /.panel-body -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header  modal-header-danger">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Liste d'erreurs</h4>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<?php foreach($errors->all() as $error): ?>
+						<a href="#" class="list-group-item">
+							<i class="fa fa fa-times fa-fw"></i> <?php echo e($error); ?>
+
+						</a>
+						<?php endforeach; ?>
+					</ul>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+</div>
 </form>
 
 
@@ -361,39 +373,40 @@
 
 
 <script>
-	/*
-
-	$.datetimepicker.setLocale('fr');
-
-	$('#datetimepicker_mask').datetimepicker({
-		format:'Y-m-d h:00:00'
-	});
-	*/
-
 	$(document).ready(function() {
-		$('#dataTables-example').DataTable({
-			responsive: true,
-			"pageLength": 10,
-			dom: 'T<"clear">lfrtip',
-			tableTools: {
-				"sRowSelect": "single",
-				fnRowSelected: function(nodes) {
-					var ttInstance = TableTools.fnGetInstance("dataTables-example");
-					var row = ttInstance.fnGetSelectedData();
-                    //alert(nodes);
-                    $('#client').val(row[0][0]);
-                    console.log(row[0][0]);
-                }
-            }
 
-            ,"columnDefs":
-            [ { "visible": false, "searchable": false, "targets":[0] }]
+		// Setup - add a text input to each footer cell
+		$('#example tfoot th').each( function () {
+			var title = $(this).text();
+			$(this).html( '<input type="text" placeholder="'+title+'" />' );
+		} );
 
-        });
+		
 
+		table = $('#example').DataTable( {
+			dom: 'Bfrtip',
+			buttons: [
+			{
+				extend: 'colvis',
+				columns: ':not(:first-child)'
+			}
+			]
+		});
 
+		// Apply the search
+		table.columns().every( function () {
+			var that = this;
 
-	});
+			$( 'input', this.footer() ).on( 'keyup change', function () {
+				if ( that.search() !== this.value ) {
+					that
+					.search( this.value )
+					.draw();
+				}
+			} );
+		} );
+
+	} );
 </script>
 
 
@@ -417,7 +430,6 @@
 		$('#date-end').bootstrapMaterialDatePicker('setMinDate', date);
 	});	
 </script>
-
 
 
 <?php $__env->stopSection(); ?>
