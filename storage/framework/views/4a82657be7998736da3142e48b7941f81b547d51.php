@@ -272,7 +272,7 @@
 						<div class="panel-body">
 							<div class="list-group">
 								<?php foreach($demande->factures as $facture): ?>
-								<a href="/facture/edit/<?php echo e($facture->devis->id); ?>" class="list-group-item">
+								<a href="/facture/edit/<?php echo e($facture->id); ?>" class="list-group-item">
 									<i class="fa fa fa-money fa-fw"></i> Interpreteur : <strong><?php echo e($facture->devis->interpreteur->nom); ?> <?php echo e($facture->devis->interpreteur->prenom); ?></strong><br/>
 									Crée le : <strong><?php echo e(date('D d M Y h:m:s',strtotime($facture->created_at))); ?></strong>
 									<span class="pull-right text-muted small"><em>Prix : <strong><?php echo e($facture->devis->total); ?> &euro;</strong></em>

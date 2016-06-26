@@ -273,7 +273,7 @@
 						<div class="panel-body">
 							<div class="list-group">
 								@foreach($demande->factures as $facture)
-								<a href="/facture/edit/{{$facture->devis->id}}" class="list-group-item">
+								<a href="/facture/edit/{{$facture->id}}" class="list-group-item">
 									<i class="fa fa fa-money fa-fw"></i> Interpreteur : <strong>{{$facture->devis->interpreteur->nom}} {{$facture->devis->interpreteur->prenom}}</strong><br/>
 									Crée le : <strong>{{date('D d M Y h:m:s',strtotime($facture->created_at))}}</strong>
 									<span class="pull-right text-muted small"><em>Prix : <strong>{{$facture->devis->total}} &euro;</strong></em>
